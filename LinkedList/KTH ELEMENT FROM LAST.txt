@@ -1,0 +1,79 @@
+#include<iostream>
+using namespace std;
+
+
+class node
+{
+    public:
+    int data;
+    node *next;
+    
+    node(int d)
+    {
+        data=d;
+        next=NULL;
+    }
+};
+
+void insertatEnd(node *&head,int data)
+{
+    if(head==NULL)
+    {
+        head=new node(data);
+        return;
+        
+    }
+    
+    node*tail=head;
+    while(tail->next!=NULL)
+    {
+        tail=tail->next;
+    }
+    tail->next=new node(data);
+    
+    
+}
+
+void searchfromlast(node*head,int t)
+{
+    
+    node*s=head;
+    node*e=head;
+    
+    for(int i=0;i<t;i++)
+    {
+        e=e->next;
+    }
+    
+    while(e!=NULL)
+    {
+        s=s->next;
+        e=e->next;
+    }
+    
+    cout<<s->data;
+    
+}
+void inputfuser(node*&head)
+{
+	int n,t;
+	cin>>n;
+	while(n!=-1)
+	{	insertatEnd(head,n);
+	
+	    cin>>n;
+	
+	}
+	
+	cin>>t;
+	searchfromlast(head,t);
+	
+	
+}
+
+
+int main() {
+    node*head=NULL;
+    inputfuser(head);
+	return 0;
+}
