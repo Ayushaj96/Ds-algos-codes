@@ -1,0 +1,120 @@
+#include<iostream>
+using namespace std;
+
+class node{
+public:
+    int data;
+    node* next;
+    
+    node(int d){
+        data = d;
+        next = NULL;
+    }
+};
+
+void insertAtTail(node*&head,int data){
+    
+    if(head==NULL){
+        head = new node(data);
+    
+    }
+    else{
+    node*tail = head;
+    while(tail->next!=NULL){
+        tail = tail->next;
+    }
+    tail->next = new node(data);
+    }
+}
+
+node* midPoint(node*head){
+    if(head==NULL||head->next==NULL){
+        return head;
+    }
+    
+    node*slow = head;
+    node*fast = head->next;
+    
+    while(fast!=NULL && fast->next!=NULL){
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+    return slow;
+    
+}
+
+
+node* merge(node*a,node*b){
+  if(a==NULL){
+      return b;
+  }  
+  else if(b==NULL){
+      return a;
+  }
+  
+  node*c;
+  
+  //Compare a and b for smaller element
+  if(a->data < b->data){
+      c = a;
+      c->next = merge(a->next,b);
+  }
+  else{
+      c = b;
+      c->next = merge(a,b->next);
+  }
+  return c;
+}
+
+node* mergeSort(node*head){
+    //Base Case 
+    if(head==NULL||head->next==NULL){
+        return head;
+    }
+    //Rec Case 
+    //1. Mid point 
+    node*mid = midPoint(head);
+    
+    node*a = head;
+    node*b = mid->next;
+    mid->next = NULL;
+    
+    //2. Recusively Sort 
+    a = mergeSort(a);
+    b = mergeSort(b);
+    
+    //3. Merge a and b 
+    node* c = merge(a,b);
+    return c;
+}
+
+void inputuser(node*&head)
+{int n,t;
+
+    cin>>n;
+    while(n!=0)
+    {cin>>t;
+        insertAtTail(head,t);
+        n--;
+        
+    }
+    
+}
+
+void print(node*head)
+{
+    while(head!=NULL)
+    {
+        cout<<head->data<<" ";
+        head=head->next;
+    }
+}
+
+int main() {
+    
+    node*head=NULL;
+    inputuser(head);
+    head=mergeSort(head);
+    print(head);
+	return 0;
+}

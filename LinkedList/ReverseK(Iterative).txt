@@ -1,0 +1,113 @@
+#include<iostream>
+using namespace std;
+
+class node{
+    public:
+    int data;
+    node*next;
+    node(int d)
+    {
+        data=d;
+        next=NULL;
+    }
+};
+void insertatend(node*&head,int data)
+{
+    if(head==NULL)
+    {
+        head=new node(data);
+        return;
+    }
+    else
+    {
+        node*tail=head;
+        while(tail->next!=NULL)
+        {
+            tail=tail->next;
+        }
+        tail->next=new node(data);
+    }
+}
+
+void inputuser(node*&head,int n)
+{
+    int k=0;
+    int d;
+    while(k<n)
+    {
+        cin>>d;
+        insertatend(head,d);
+        k++;
+    }
+}
+
+void print(node*head)
+{
+    while(head)
+    {
+        cout<<head->data<<" ";
+        head=head->next;
+    }
+    cout<<endl;
+}
+
+node* reverse(node*head,int m){
+    int i=0,j=m-1,k;
+    node*p=head;
+    node*q=head;
+    node*x;
+    while(i<j){
+        k=0;
+        while(k<j){
+            q=q->next;
+            k++;
+        }
+        swap(p->data,q->data);
+        i++;
+        j--;
+        p=p->next;
+        q=head;
+    }
+    for(int i=0;i<m;i++)
+    {
+        x=x->next;
+    }
+    return x;
+}
+
+void reverseK(node*head,int k,int n)
+{
+    if(n<=0||k==0)
+    {
+        return;
+    }
+    else
+    if(k>n)
+    {
+        node*p=reverse(head,n);
+    }
+    else
+    {
+       node *p= reverse(head,k);
+      reverseK(p,k,n-k);
+    }
+}
+
+int main()
+{
+    int t;
+    cin>>t;
+    for(int i=0;i<t;i++)
+    {
+        node*head=NULL;
+    int n;
+    cin>>n;
+    inputuser(head,n);
+    int k;
+    cin>>k;
+    reverseK(head,k,n);
+    print(head);
+    }
+    
+   
+}

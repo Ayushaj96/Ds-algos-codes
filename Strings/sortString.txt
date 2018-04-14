@@ -1,0 +1,25 @@
+#include <iostream>
+#include<cstring>
+using namespace std;
+int main() {
+    int n;
+    char str[1000];
+    int count[26]={0};
+    cin>>str;
+    
+    n=strlen(str);
+      for(int i=0;i<n;i++){
+        count[str[i]-'a']++;
+    }
+    int j=0;
+   for(int i=0;i<n;i++)
+   {
+       while(count[i]!=0)
+       {str[j]=char(97+i);
+        count[i]--;
+        j++;
+       }
+   }
+   
+   cout<<str;
+}
