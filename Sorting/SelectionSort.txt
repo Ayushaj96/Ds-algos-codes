@@ -1,0 +1,33 @@
+	#include <iostream>
+using namespace std;
+
+//Select the minimum element from list and swap with first element
+
+void Selectionsort(int *a,int n)
+{
+    int min,l;
+    for(int i=0;i<n-1;i++)
+    {
+        min=a[i];
+        l=i;
+        for(int j=i+1;j<n;j++)
+        {
+            if(min>a[j])
+            {  min=a[j];//find min from the list
+                l=j;
+            }   
+        }
+            swap(a[i],a[l]);
+    
+    }}
+
+int main() {
+int arr[]={3,2,1,4,2,4,5};
+int n=sizeof(arr)/sizeof(arr[0]);
+
+Selectionsort(arr,n);
+for(int i=0;i<n;i++)
+cout<<arr[i]<<" ";
+return 0;
+
+}

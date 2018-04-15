@@ -1,0 +1,55 @@
+#include <iostream>
+using namespace std;
+
+void readmatrix(int a[][10],int R,int C)
+{
+    for(int i=0;i<R;i++)
+    {
+        for(int j=0;j<C;j++)
+            cin>>a[i][j];
+    }
+}
+
+void printmarix(int a[][10],int R,int C)
+{
+    for(int i=0;i<R;i++)
+    {
+        for(int j=0;j<C;j++)
+            cout<< a[i][j]<<" " ;
+    
+    cout<<endl;}
+}
+
+void staircaseSearch(int a[][10],int R,int C,int key)
+{
+    int i=0,j=C-1;
+    
+    while(i<R&&j>=0)
+    {
+        if(a[i][j]==key)
+            {cout<<"Found at position "<<i<<","<<j<<endl;
+            return;}
+            
+            else if(a[i][j]>key)
+            j--;
+            
+            else
+             i++;
+    }
+    
+    cout<<"not found ";
+    return;
+}
+
+int main() {
+    int a[10][10];
+    int R,C,key;
+    
+    cin>>R>>C;
+    
+    readmatrix(a,R,C);
+    printmarix(a,R,C);
+    cin>>key;
+    staircaseSearch(a,R,C,key);
+    return 0;
+}
