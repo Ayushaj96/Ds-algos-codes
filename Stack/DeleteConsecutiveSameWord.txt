@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void deleteConsecutive(vector<string> v)
+{
+    stack<string> s;
+    
+    for(int i=0;i<v.size();i++)
+    {  
+    if(s.empty())
+    {
+        s.push(v[i]);
+    }
+        
+        else{
+            string str=s.top();
+            if(str.compare(v[i])==0)
+            {
+                s.pop();
+            }
+            else{
+                s.push(v[i]);}
+        }
+    }
+    
+    cout<<s.size()<<endl;
+    
+    
+}
+
+int main() {
+    int t;
+    cin>>t;
+    for(int i=0;i<t;i++)
+    {int n;
+        cin>>n;
+        string s;
+        vector <string> str;
+   
+        for(int i=0;i<n;i++)
+        {
+            cin>>s;
+            str.push_back(s);
+        }
+        
+        deleteConsecutive(str);
+        
+    }
+	return 0;
+}
