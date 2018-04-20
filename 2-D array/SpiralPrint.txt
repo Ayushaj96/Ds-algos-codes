@@ -1,0 +1,70 @@
+#include <iostream>
+using namespace std;
+void initMatrix(int a[][10],int row,int col){
+    
+    int value=1;
+    for(int i=0;i<row;i++){
+        for(int j=0;j<col;j++){
+            a[i][j]=value++;
+        }
+    }
+}
+
+void printMatrix(int a[][10],int row,int col){
+    
+    for(int i=0;i<row;i++){
+        for(int j=0;j<col;j++){
+            cout<<a[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+}
+
+void spiralPrint(int a[][10],int row,int col){
+    int startrow=0,endrow=row-1,startcol=0,endcol=col-1;
+    
+    while(startrow<=endrow && startcol<=endcol){
+       
+        //print start row
+        for(int j=startrow;j<=endcol;j++){
+            cout<<a[startrow][j]<<" ";
+        }
+        startrow++;
+        
+        //print end column 
+        for(int i=startrow;i<=endrow;i++){
+           cout<<a[i][endcol]<<" ";
+        }
+        endcol--;
+       
+        //print end row - make sure that endrow > startrow
+        if(endrow>startrow){
+          for(int j=endcol;j>=startcol;j--){
+            cout<<a[endrow][j]<<" ";
+          }
+          endrow--;
+        }
+       
+        //print start col - make sure that endcol>startcol
+        if(endcol>startcol){
+          for(int i=endrow;i>=startrow;i--){
+            cout<<a[i][startcol]<<" ";
+          }
+          startcol++;
+        }
+    }
+}
+
+int main() {
+    int a[10][10];
+    int row,col;
+    cin>>row>>col;
+    
+    initMatrix(a,row,col);
+    printMatrix(a,row,col);
+    
+    cout<<endl;
+    spiralPrint(a,row,col);
+
+    return 0;
+}
