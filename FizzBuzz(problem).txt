@@ -1,0 +1,22 @@
+#include <iostream>
+#include<string>
+using namespace std;
+int main() {
+    
+    for(int i=1;i<=100;i++)
+    {
+        string var="";
+        
+        if(i%3==0)
+            var+="fizz";
+        if(i%5==0)
+            var+="buzz";
+            
+        if(var=="")
+        var=to_string(i);
+        
+        cout<<var;
+        cout<<"\n";
+        
+    }
+}

@@ -1,0 +1,72 @@
+#include <iostream>
+#include<stack>
+using namespace std;
+
+int calpostfix(stack<int>& s,char ch)
+{
+        cout<<s.top()<<" ";
+    
+     int value;
+    int top=s.top();
+            s.pop();
+            cout<<s.top()<<" ";
+        value=s.top();
+            s.pop();
+            
+            if(ch=='+')
+            value=value+top;
+            
+            else 
+            if(ch=='-')
+            value=value-top;
+            
+            else 
+            if(ch=='*')
+            value=value*top;
+            
+            else
+            value=value/top;
+            
+            s.push(value);
+            return value;
+}
+
+int postfixExpression(string str)
+{
+    stack<int> s;   
+    int value;
+    
+       for(int i=0;i<int(str.size());i++)
+    {
+    	char ch=str[i];
+
+        if(ch!='+'&&ch!='-'&&ch!='*'&&ch!='/')
+        {
+            s.push(ch-'0');
+        }
+        
+        else if(ch=='+'||ch=='-'||ch=='*'||ch=='/')
+        {
+            value=calpostfix(s,ch);
+        
+        }
+    }
+    
+    return value;
+
+}
+int main() {
+    int t;
+    cin>>t;
+    while(t--)
+    {
+    string str;
+    cin>>str;
+    
+    
+    int isValid=postfixExpression(str);
+    cout<<isValid<<endl;
+    }
+    return 0;
+    
+}

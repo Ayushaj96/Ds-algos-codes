@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define li long int
+ 
+bool canPlaceCows(li positions[], li n, li mid, li cows){
+    li last = positions[0], placed = 1;  
+    for(li i = 1; i < n; i ++){
+        if(positions[i] - last >= mid){          
+            last = positions[i];
+            placed ++;
+        }
+        if(placed == cows)           
+            return true;
+    }
+    return false;
+}
+ 
+int main() {
+    
+        li N, Cows;
+        cin >> N >> Cows;
+ 
+        li positions[N];
+        for(li i = 0; i < N; i ++)
+            cin >> positions[i];
+ 
+        sort(positions, positions + N);
+ 
+        li min_dist = 0;
+        li max_dist = positions[N - 1] - positions[0];
+        li mid_dist;
+ 
+        while(max_dist - min_dist > 1){
+ 
+            mid_dist =(max_dist + min_dist) / 2;
+           // cout<<mid_dist<<" ,";
+ 
+            if(canPlaceCows(positions, N, mid_dist, Cows)){  
+                min_dist = mid_dist;
+            } 
+            else {
+                max_dist = mid_dist;
+            }
+        }
+ 
+        cout << min_dist << "\n";
+ 
+
+    return 0;
+}

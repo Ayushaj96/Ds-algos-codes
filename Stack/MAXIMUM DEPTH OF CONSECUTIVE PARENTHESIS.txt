@@ -1,0 +1,43 @@
+#include <iostream>
+#include<stack>
+using namespace std;
+ 
+int maxDepthParenthesis(string S)
+{
+    int current_max = 0; 
+    int max = 0;    
+    stack<char> sc;
+    for (char ch:S)
+    {
+        if (ch == '(')
+        {
+            current_max++;
+ 
+            if (current_max> max)
+                max = current_max;
+        }
+        else if (ch == ')')
+        {
+            if (current_max>0)
+                current_max--;
+            else
+                return -1;
+        }
+    }
+ 
+    if (current_max != 0)
+        return -1;
+ 
+    return max;
+}
+ 
+int main()
+{   int t;
+    cin>>t;
+    while(t--)
+    {
+    string str;
+    cin>>str;
+    cout << maxDepthParenthesis(str)<<endl;}
+    return 0;
+}

@@ -1,0 +1,45 @@
+
+#include <iostream>
+#include <stack>
+using namespace std;
+ 
+bool Duplicateparenthesis(string str)
+{
+    stack<char> s;
+ 
+    for (char ch : str)
+    {
+        if (ch == ')')
+        {
+            char top = s.top();
+            s.pop();
+ 
+         if (top == '(')
+                return true;
+            else
+            {
+                while (top != '(')
+                {
+                    top = s.top();
+                    s.pop();
+                }
+            }
+        }
+        else
+            s.push(ch);
+    }
+    return false;
+}
+ 
+int main()
+{
+        string str ;
+        cin>>str;
+ 
+    if (Duplicateparenthesis(str))
+        cout << "True";
+    else
+        cout << "False";
+ 
+    return 0;
+}
