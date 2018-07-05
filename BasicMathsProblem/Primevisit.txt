@@ -1,0 +1,44 @@
+#include<iostream>
+using namespace std;
+
+
+bool isPrime(long int n)
+{
+	if(n==1)
+	{
+		return false;
+	}
+	
+	for(long int i=2;i*i<=n;i++)
+	{
+		if(n%i==0){
+			return false;
+        }
+	}
+		return true;
+}
+
+
+
+int main()
+{
+	long int a,b,countries,N;
+	cin>>N;
+	while(N!=0)
+	{
+	  countries=0;
+	cin>>a>>b;
+	
+	for(long int i=a;i<=b;i++)
+	{
+	if(isPrime(i))
+	{
+		countries++;
+	}
+		
+	}
+	cout<<countries<<endl;
+	N--;
+	}
+	return 0;
+}		

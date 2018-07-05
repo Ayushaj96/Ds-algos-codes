@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+int main() {
+    string str;
+   int c = 0, count[26] = {0}, x;
+    cin>>str;
+   
+   while (str[c] != '\0') {
+   
+      if (str[c] >= 'a' && str[c] <= 'z') {
+         x = str[c] - 'a';
+         count[x]++;
+      }
+ 
+      c++;
+   }
+ 
+   for (c = 0; c < 26; c++)
+ {
+  if(count[c]!=0)
+  { char d=(char)(c+'a');
+  	cout<<d<<" "<<count[c]<<endl;
+	}
+}
+   return 0;
+}
