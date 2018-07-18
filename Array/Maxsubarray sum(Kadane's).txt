@@ -1,0 +1,33 @@
+#include<iostream>
+using namespace std;
+#define ll long int
+int main() {
+    
+    ll t,n,cs,ms;
+    
+    cin>>t;
+    
+    while(t--)
+    {
+        ll a[1000000];
+        cin>>n;
+        cs=ms=0;
+        for(int i=0;i<n;i++)
+            cin>>a[i];
+            
+        for(int i=0;i<n;i++)
+        {
+            cs+=a[i];
+            if(cs<0)
+                cs=0;
+                
+            ms=max(cs,ms);    
+                
+        }
+        
+        cout<<ms<<endl;
+        
+    }
+    
+	return 0;
+}

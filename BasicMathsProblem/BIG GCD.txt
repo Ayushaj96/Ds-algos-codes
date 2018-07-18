@@ -1,0 +1,48 @@
+
+#include<iostream>
+#include<string>
+using namespace std;
+#define ll long long int
+
+
+ll gcd(ll a,ll b)
+{
+    if(b==0)
+    {
+        return a;
+    }
+    
+    gcd(b,a%b);
+}
+ll mod(string num, ll a)
+{
+    ll res = 0;
+ 
+    for (int i = 0; i < num.length(); i++)
+    {      res = (res*10 + (ll)num[i] - '0') %a;
+    }
+    return res;
+}
+ 
+// Driver program
+int main()
+{
+    ll a,b,c;
+    cin>>a;
+   b=a;
+    string num ;
+    cin>>num;
+    if(a==0)
+    {
+        cout<<num;
+    }else{
+    while(b>=a)
+    {
+    b= mod(num, a);
+    num=to_string(b);
+    }
+  // cout<<num<<" ";
+   c= gcd(a,b);
+   cout<<c;
+    }return 0;
+}

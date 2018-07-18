@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool checkarmstrong(int n)
+{
+    int count=0;
+    int num=n,rem,check=0;
+    int num1=n;
+    while(n!=0)
+    {
+        n=n/10;
+         ++count;
+    }
+
+while(num!=0)
+{
+    rem=num%10;
+    check+=pow(rem,count);
+num=num/10;
+}
+if(num1==check)
+return true;
+
+return false;
+}
+int main() {
+
+    int n;
+    cin>>n;
+if(checkarmstrong(n))
+    cout<<"true";
+
+    else
+        cout<<"false";
+
+}

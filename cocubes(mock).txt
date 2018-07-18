@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int findsum(int *arr,int n,int k,int x)
+{
+    int b[100];
+    int m=0,check,max=10000,start;
+    for(int i=0;i<n;i++)
+    {
+        if(k!=arr[i])
+        {
+                b[m]=arr[i]-k;
+                m++;
+        }
+    }
+
+   
+    for(int i=0;i<m-x+1;i++)
+       {    check=0;
+           for(int j=i;j<x+i;j++)
+           {
+               check+=abs(b[j]);
+           }
+          // cout<<check<<" ";
+        if(check<max)
+        {
+            max=check;
+            start=i;
+        }
+
+       }
+int sum1=0;
+
+    for(int i=start;i<x+start;i++)
+    {   //cout<<b[i]<<" ";
+        sum1+=(b[i]+k);
+    }
+
+
+return sum1;
+}
+int main() {
+    int n,arr[100],k,x;
+
+    cin>>n;
+    for(int i=0;i<n;i++)
+        cin>>arr[i];
+
+cout<<        findsum(arr,n,49,4);
+}
