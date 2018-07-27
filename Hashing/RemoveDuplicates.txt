@@ -1,0 +1,29 @@
+
+#include<iostream>
+#include<climits>
+#include<map>
+using namespace std;
+
+map<int, int> m;
+
+void removedup(int arr[], int n){
+	for (int i = 0; i < n; i++)
+		m[arr[i]]=arr[i];
+        
+	for (auto i : m) {
+	cout<<i.second<<" ";
+		}
+	}
+
+
+
+int main(){
+    int n;
+    cin>>n;
+	int* arr = new int[n];
+	for(int i=0;i<n;i++)
+	    cin>>arr[i];
+	
+	removedup(arr, n);
+	return 0;
+}

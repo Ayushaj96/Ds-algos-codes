@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+float bsquareroot(int n,int p)
+{
+    float ans;
+    int s=0,e=n,mid;
+
+    while(s<=e)
+    {
+        mid=(s+e)/2;
+        if(mid*mid==n)
+        {
+            ans=mid;
+            break;
+        }
+        if(mid*mid<n)
+        {
+            s=mid+1;
+            ans=mid;
+        }
+        else
+        e=mid-1;
+    }
+
+
+    float inc=0.1;
+    for(int i=0;i<p;i++)
+    {
+        while(ans*ans<=n)
+        {
+            ans+=inc;
+        }
+        ans=ans-inc;
+        inc=inc/10;
+    }
+    return ans;
+}
+
+
+int main() {
+    int n,p;
+    cin>>n>>p;
+    cout<<bsquareroot(n,p);
+}
