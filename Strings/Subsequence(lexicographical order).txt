@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void print_subs(string a,string b,set<string> &str)
+{
+    if(a.length()==0)
+    { 
+        str.insert(b);
+        return;
+    }
+
+    print_subs(a.substr(1),b,str);
+    print_subs(a.substr(1),b+a[0],str);
+}
+
+int main() {
+    int n;
+    cin>>n;
+    while(n--)
+{    string input;
+    cin>>input;
+    set<string> str;
+    print_subs(input,"",str);
+
+    for(string s:str) 
+    {
+        cout<<s<<endl;
+    }
+}
+}

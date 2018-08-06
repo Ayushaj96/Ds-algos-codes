@@ -1,0 +1,38 @@
+#include <iostream>
+using namespace std;
+
+int searchElement(int *arr,int s,int e,int key)
+{
+    if(s>e)
+        return -1;
+    
+    int mid=(s+e)/2;
+      if(arr[mid]==key)
+        return mid;
+
+       if(arr[s]<=arr[mid])
+       {
+           if(arr[mid]>=key&& key>=arr[s])
+            return searchElement(arr,s,mid-1,key);
+
+            else
+                return searchElement(arr,mid+1,e,key);
+       }   
+
+       else
+            {
+                if(key<=arr[e]&&key>=arr[mid])
+                    return searchElement(arr,mid+1,e,key);
+
+                 else
+                    return searchElement(arr,s,mid-1,key);   
+            }
+}
+
+int main() {
+    int arr[]={5,6,7,1,2,3,4};
+    int key;
+    cin>>key;
+
+    cout<<searchElement(arr,0,6,key);
+}

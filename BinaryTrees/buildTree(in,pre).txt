@@ -1,0 +1,73 @@
+#include <iostream>
+using namespace std;
+
+class node
+{
+    public:
+    int data;
+    node*left;
+    node*right;
+
+    node(int d)
+    {
+        data=d;
+        left=right=NULL;
+    }
+};
+
+node* buildtreehelper(int *ino,int *pre,int inoS,int inoE,int preS,int preE)
+{
+     if(inoS>inoE)
+        return NULL;
+
+        int rootdata=pre[preS];
+        int index=-1;
+      for(int i=inoS;i<=inoE;i++)
+      {
+          if(ino[i]==rootdata)
+          {
+              index=i;
+              break;
+          }
+      }
+
+      int linoS=inoS;
+      int linoE=index-1;
+      int lpreS=preS+1;
+      int lpreE=linoE-linoS+lpreS;
+      int rinoS=index+1;
+      int rinoE=inoE;
+      int rpreS=lpreE+1;
+      int rpreE=preE;
+
+    node *root=new node(rootdata);  
+      root->left=buildtreehelper(ino,pre,linoS,linoE,lpreS,lpreE);
+      root->right=buildtreehelper(ino,pre,rinoS,rinoE,rpreS,rpreE);
+
+      return root;
+}
+
+node*buildtree(int *ino,int *pre,int size)
+{
+    return buildtreehelper(ino,pre,0,size-1,0,size-1);
+}
+
+void  printpre(node*root)
+{
+    if(root==NULL)
+        return;
+
+        cout<<root->data<<" ";
+        printpre(root->left);
+        printpre(root->right);
+}
+
+int main() {
+
+ int ino[7]={10,30,40,50,60,70,90 };
+ int pre[7]={50,30,10,40,70,60,90};
+    node *root=NULL;
+    root=buildtree(ino,pre,7);
+    printpre(root);
+    
+}

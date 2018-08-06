@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define a 1000000007
+int main() {
+    
+        int t, n, Number;
+        cin>>t;
+while (t--)
+{
+    
+    map<int, int> Counter;
+    
+        cin>>Number;
+        for (int j = 2; j * j <= Number; j++)
+        {
+            while (Number % j == 0)
+            {cout<<j<<" ";
+                Counter[j]++;
+                Number /= j;
+            }
+        }
+        if (Number > 1) 
+            Counter[Number]++;
+        
+
+    int Answer = 1;
+    for (auto it:Counter) {
+        Answer *= (it.second + 1)%a;}//Frequency of each divisor+1 (formula)
+    cout<<Answer<<endl;
+}
+    
+	return 0;
+}

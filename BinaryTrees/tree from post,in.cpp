@@ -33,8 +33,8 @@ node* makeTree(vector<int> &inorder, vector<int> &postorder, int i, int j, int& 
     if (i==j)
         return n;
     int in = findIndex(inorder, i, j, n->data);
+      n->left = makeTree(inorder, postorder, i, in-1, p);
     n->right = makeTree(inorder, postorder, in+1, j, p);
-    n->left = makeTree(inorder, postorder, i, in-1, p);
     return n;
 }
 

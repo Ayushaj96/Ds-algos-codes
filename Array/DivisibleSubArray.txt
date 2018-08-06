@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+#define ll long long
+
+ll a[1000005],presum[1000005];
+using namespace std;
+int main() {
+    int t;
+    cin>>t;
+    
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        
+        ll sum=0;
+        memset(presum,0,sizeof presum);
+        presum[0]=1;
+        
+        
+        for(int i=0;i<n;i++)
+        {
+            cin>>a[i];
+            sum+=a[i];
+            sum%=n;
+            sum=(sum+n)%n;
+            presum[sum]++;
+        }
+        
+        ll ans=0;
+        for(int i=0;i<n;i++)
+        {
+            ll no=presum[i];
+            ans+=(no*(no-1))/2;
+        }
+        cout<<ans<<endl;
+    }
+	return 0;
+}

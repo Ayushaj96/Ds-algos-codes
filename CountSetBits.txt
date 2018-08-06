@@ -1,0 +1,32 @@
+#include<iostream>
+using namespace std;
+int countsetbits(int n)
+{
+    int ans=0;
+    while(n>0)
+    {
+        ans+=(n&1);
+        n=n>>1;
+    }
+    return ans;
+
+}
+int main() {
+    int n;
+    cin>>n;
+     int a,b,ans,i;
+       
+    while(n--)
+    {
+        cin>>a>>b;
+        ans=0;
+        for( i=a;i<=b;i++){
+        ans+=countsetbits(i);
+        }
+        cout<<ans<<endl;
+        
+    }
+    
+    
+	return 0;
+}
