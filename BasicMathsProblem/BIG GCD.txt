@@ -41,7 +41,6 @@ int main()
     b= mod(num, a);
     num=to_string(b);
     }
-  // cout<<num<<" ";
    c= gcd(a,b);
    cout<<c;
     }return 0;

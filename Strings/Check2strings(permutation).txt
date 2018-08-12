@@ -1,0 +1,44 @@
+#include <iostream>
+#include<cstring>
+using namespace std;
+int freq[26];
+bool checkpermutation(char *a,char *b)
+{
+    int i=strlen(a)-1;
+    int j=strlen(b)-1;
+
+    if(i!=j)
+        return false;
+     
+            while(i>=0)
+            {
+                freq[a[i]-'a']++;
+                i--;
+            }
+           
+            while(j>=0)
+            {
+                    freq[a[j]-'a']--;
+                    j--;
+            }
+            for(int i=0;i<26;i++)
+            {
+                if(freq[i]!=0)
+                    return false;
+            }  
+
+            return true;   
+
+}
+
+int main() {
+    char a[100],b[100];
+    cin>>a;
+    cin>>b;
+    memset(freq,0,sizeof(freq));
+    if(checkpermutation(a,b))
+        cout<<"True";
+    else
+        cout<<"False";
+
+}

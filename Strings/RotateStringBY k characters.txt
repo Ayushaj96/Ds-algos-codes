@@ -1,0 +1,36 @@
+#include <iostream>
+#include<cstring>
+using namespace std;
+void rotateString(char *a,int k)
+{
+    int i=strlen(a);
+    while(i>=0)
+    {
+        a[i+k]=a[i];
+        i--;
+    }
+
+    i=strlen(a);
+    int m=0;
+    int j=i-k;
+    while(j<i)
+    {
+        a[m]=a[j];
+        m++;
+        j++;
+    }
+
+    a[i-k]='\0';
+
+
+}
+
+int main() {
+    char ch[100];
+    int k;
+    cin>>ch;
+    cin>>k;
+
+    rotateString(ch,k);
+    cout<<ch;
+}

@@ -26,7 +26,7 @@ void spiralPrint(int a[][10],int row,int col){
     while(startrow<=endrow && startcol<=endcol){
        
         //print start row
-        for(int j=startrow;j<=endcol;j++){
+        for(int j=srartcol;j<=endcol;j++){
             cout<<a[startrow][j]<<" ";
         }
         startrow++;

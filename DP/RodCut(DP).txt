@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+int memo[100];
+int cutRod(int *price,int n)
+{
+    if(n<=0)
+        return 0;
+    
+     if(memo[n]!=-1)
+        return memo[n];
+
+     int max_val=INT_MIN;
+
+     for(int i=1;i<=n;i++)
+     {
+         max_val=max(max_val,price[i]+cutRod(price,n-i));
+     }  
+    memo[n]=max_val;
+     return memo[n];
+
+}
+
+int cutRod2(int price[], int n)
+{
+   int val[n+1];
+   val[0] = 0;
+   int i, j;
+ 
+   for (i = 1; i<=n; i++)
+   {
+       int max_val = INT_MIN;
+       for (j = 1; j <=i; j++)
+         max_val = max(max_val, price[j] + val[i-j]);
+       val[i] = max_val;
+   }
+ 
+   return val[n];
+}
+int main()
+{   int n;
+    cin>>n;
+    memset(memo,-1,sizeof(memo));
+    int arr[n];
+    for(int i=1;i<=n;i++)   
+        cin>>arr[i];
+
+    cout<<cutRod(arr,n)<<endl;
+    cout<<cutRod2(arr,n);
+
+}
