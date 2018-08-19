@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+void permute(char *ch,int i)
+{
+    if(ch[i]=='\0')
+    {
+        cout<<ch<<" ";
+        return;
+    }
+
+    for(int j=i;ch[j]!='\0';j++)
+    {
+        swap(ch[i],ch[j]);
+        permute(ch,i+1);
+        swap(ch[i],ch[j]);
+        
+    }
+}
+
+int main() {
+    char ch[50];
+    cin>>ch;
+    permute(ch,0);
+}

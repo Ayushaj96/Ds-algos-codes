@@ -1,0 +1,75 @@
+#include <iostream>
+using namespace std;
+
+class node
+{
+    public:
+    int data;
+    node *next;
+
+    node(int d)
+    {
+        data=d;
+        next=NULL;
+    }
+     
+};
+
+void insertatend(node* &head,int data)
+{
+    if(head==NULL)
+    {
+        head=new node(data);
+        return;
+    }
+node*tail=head;
+        while(tail->next!=NULL)
+        {
+            tail=tail->next;
+        }
+        tail->next=new node(data);
+
+}
+
+void inputuser(node*&head,int n)
+{
+    int k=0;
+    int d;
+    while(k<n)
+    {
+        cin>>d;
+        insertatend(head,d);
+        k++;
+    }
+}
+
+void print(node*head)
+{
+    while(head)
+    {
+        cout<<head->data<<" ";
+        head=head->next;
+    }
+    cout<<endl;
+}
+
+node *reverseRecur(node*head)
+{
+    if(head->next==NULL||head==NULL)
+        return head;
+
+     node *smallhead=reverseRecur(head->next);
+     node *c=head;
+     c->next->next=c;
+     c->next=NULL;
+     return smallhead;   
+}
+int main() {
+    node*head=NULL;
+    int n;
+    cin>>n;
+    inputuser(head,n);
+
+    head=reverseRecur(head);
+    print(head);
+}

@@ -1,0 +1,81 @@
+#include <iostream>
+#include<cstring>
+using namespace std;
+
+class Car{
+private:
+    int price;
+public:
+    int model_no;
+    char name[20];
+    
+    //Constructor 
+    Car(){
+        //Override the default Constructor
+        cout<<"Making a car.."<<endl;
+    }
+    // Constructor with parameters - Parametrised Constructor 
+    Car(int p,int mn,char *n){
+        price = p;
+        model_no = mn;
+        strcpy(name,n);
+        
+    }
+    
+    Car(Car &X){
+            cout<<"In Copy Constructor ";
+            strcpy(name,X.name);
+            price = X.price;
+            model_no = X.model_no;
+    }
+    
+    
+    void setPrice(int p){
+        if(p>1000){
+            price  = p;
+        }
+        else{
+            price = 1000;
+        }
+    }
+    int getPrice(){
+        return price;
+    }
+    void print(){
+        cout<<name<<endl;
+        cout<<model_no<<endl;
+        cout<<price<<endl;
+        cout<<endl;
+    }
+    
+};
+
+int main() {
+    
+    Car C;
+    C.setPrice(1500);
+    C.model_no = 1001;
+    C.name[0] = 'B';
+    C.name[1] = 'M';
+    C.name[2] = 'W';
+    C.name[3] = '\0';
+    
+    C.print();
+    
+    Car D;
+    D.setPrice(2000);
+    cout<<D.getPrice()<<endl;
+    
+    Car E(100,2001,"Ferrari");
+    
+    //Copy Constructor is to create a copy of given object of the same type 
+    Car F = E;
+    F.setPrice(20000);
+    F.name[0] = 'G';
+    E.print();
+    F.print();
+
+    return 0;
+    
+}
+    

@@ -1,0 +1,80 @@
+#include <iostream>
+#include <unordered_map>
+using namespace std;
+class node{
+    public:
+    int data;
+    node *next;
+    
+    node(int d){
+        data=d;
+        next=NULL;
+    }
+};
+
+void insertAtTail(node *&head,int data){
+   if(head==NULL){
+       head=new node(data);
+	   return;
+   }    
+   node *tail=head;
+   while(tail->next!=NULL){
+      tail=tail->next;
+    }
+    node *n=new node(data);
+    n->next=NULL;
+    tail->next=n;
+    return;
+}
+
+void print(node *head){           
+    node *temp=head;
+    
+    while(temp!=NULL){
+        cout<<temp->data<<" -> ";
+        temp=temp->next;
+    }
+   // return temp;
+    cout<<endl;
+}
+
+node *getlast(node *head){
+    while(head->next!=NULL){
+        head=head->next;
+    }
+    return head;
+}
+
+bool findcycle(node *head){
+    //key is address of type node* , bool states that node is visited or not
+    unordered_map<node *,bool> m;
+    node *temp=head;
+
+    while(temp!=NULL){
+        if(m[temp]==true){
+            cout<<"cycle found";
+            return true;
+        }
+        m[temp]=true;
+        temp=temp->next;
+    }
+    return false;
+}
+int main() {
+    node *head=NULL;
+    
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        insertAtTail(head,a[i]);
+    }
+    node *tail=getlast(head);
+    //cout<<tail->data;
+    tail->next=head->next->next->next;
+    findcycle(head);
+   // print(head);
+
+    return 0;
+}

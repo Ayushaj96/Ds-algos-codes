@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+template<typename T>
+class Graph{
+map<T,list<T>> adjList;
+public:
+    void addEdge(T u,T v,bool bidir=false)
+    {
+        adjList[u].push_back(v);
+        if(bidir)
+            adjList[v].push_back(u);
+    }
+
+    void print()
+    {
+        for(auto i:adjList)
+        {
+            cout<<i.first<<"->";
+            for(auto j:i.second)
+                cout<<j<<" ";
+
+             cout<<endl;   
+        }
+    }
+
+    void dfshelper(T node,map<T,bool> & visited,list<T> &ordering)
+    {
+        visited[node]=true;
+        for(T neighbor:adjList[node])
+        {
+            if(!visited[neighbor])
+                dfshelper(neighbor,visited,ordering);
+        }
+
+        ordering.push_front(node);
+    }
+    
+    void dfsTopologicalSort()
+    {
+        map<T,bool> visited;
+        list<T> ordering;
+
+        for(auto i:adjList){
+                T node=i.first;
+                if(!visited[node])
+                {
+                    dfshelper(node,visited,ordering);
+                }
+        }
+
+        for(T element:ordering) 
+            cout<<element<<" ,";
+;    }
+};
+int main() {
+
+    Graph<string> g;
+    g.addEdge("Eng","Prog Logic" ); 
+    g.addEdge("Maths","Prog Logic" );
+    g.addEdge("Prog Logic","HTML" );
+    g.addEdge("Prog Logic","python" );
+    g.addEdge("Prog Logic","Java" );
+    g.addEdge("Prog Logic","Js" );
+    g.addEdge("Python","Web Dev" );
+    g.addEdge("Html","Css" );
+    g.addEdge("Css","Js" );
+    g.addEdge("Js","Web Dev");
+    g.addEdge("Java","Web Dev");
+    g.print();
+    g.dfsTopologicalSort();
+
+    
+    
+}
