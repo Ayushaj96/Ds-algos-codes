@@ -88,7 +88,7 @@ int main() {
     E.print(); 
    
    Car *dc=new Car(100,200,"Dynamic  car");
-   delete dc;//dynamic object is deleted using delete operator
+   delete dc;//dynamic object is deleted using delete operator	
    
  
     return 0;//static objects deleted after scope ends

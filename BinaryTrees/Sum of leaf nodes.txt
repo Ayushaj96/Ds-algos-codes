@@ -1,0 +1,61 @@
+#include <iostream>
+using namespace std;
+
+class node
+{
+    public:
+    int data;
+    node *left,*right;
+
+    node(int d)
+    {
+        data=d;
+        left=right=NULL;
+    }
+};
+
+node *buildtree()
+{   
+    int d;
+    cin>>d;
+
+    if(d==-1)
+    {
+        return NULL;
+    }
+
+    node *n =new node(d);
+    n->left=buildtree();
+    n->right=buildtree();
+
+    return n;
+}
+
+void  sumnodes(node *root,int *sum)
+{   
+    
+        if(root==NULL)
+            return;
+
+          if(root->left==NULL&&root->right==NULL)
+          {
+              *sum+=root->data;
+              //cout<<root->data<<" ";
+          }  
+
+          else
+          {
+              sumnodes(root->left,sum);
+              sumnodes(root->right,sum);
+          }
+
+          
+}
+int main() {
+    node *root=NULL;
+    root=buildtree();
+    int sum=0;
+    sumnodes(root,&sum);
+    cout<<sum;
+    
+}

@@ -1,0 +1,32 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+int main() {
+    char str[100];
+    cin.getline(str,100);
+    string words[100];
+    char *ptr;
+    ptr = strtok(str," ");
+   
+   int i=0;
+    while(ptr!=NULL){
+        words[i] = ptr;
+        i++;
+        ptr = strtok(NULL," ");
+    }
+    
+    int count = 1;
+    for(int j=0;j<i;j++){
+        for(int k=j+1;k<=i;k++){
+            if(words[j]==words[k]){
+                count = count+1;
+                words[k] = "0";
+            }
+        }
+        if(words[j]!="0")
+            {cout<<words[j]<<" : "<<count<<endl;}
+            
+            count = 1;
+    }
+}
+

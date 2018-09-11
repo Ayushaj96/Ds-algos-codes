@@ -1,0 +1,29 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+int main() {
+    char str[100];
+    cin>>str;
+    int size = strlen(str);
+    int n=1;
+
+    char *dest = new char[size];
+    char count[size];
+    int j=0,k;
+
+    for(int i=0;i<size;i++){
+        if(str[i]==str[i+1]){
+            n++;
+        }
+        else{
+           dest[j++] = str[i];
+           sprintf(count,"%d",n);
+        
+           for(k = 0; k<strlen(count) ; k++,j++)
+            { dest[j] = count[k]; 
+            }
+           n=1;
+        } 
+    }
+    cout<<dest;
+}
