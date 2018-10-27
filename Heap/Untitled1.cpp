@@ -1,9 +1,10 @@
-#include<iostream>
-#include<queue>
-#include<functional>
-#include<vector>
-using namespace std;
+// #include<iostream>
+// #include<queue>
+// #include<functional>
+// #include<vector>
 
+#include<bits/stdc++.h>
+using namespace std;
 
 class Fruit
 {
