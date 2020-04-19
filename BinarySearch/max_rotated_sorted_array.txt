@@ -1,0 +1,36 @@
+// pivot(max) in sorted rotated array
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int arr[] = {6,7,8,9,1,2,3,4,5};
+    int n = sizeof(arr)/sizeof(int);
+    
+    int start = 0;
+    int end  = n - 1;
+    
+    while(start <= end)
+    {
+        int mid = (start + end)/2;
+        
+        if(arr[mid] > arr[mid + 1] && mid < end){
+            cout << mid << endl;
+            break;
+        }
+        
+        if(arr[mid] < arr[mid - 1] && mid > start){
+            cout << mid - 1 << endl;
+            break;
+        }
+        
+        if(arr[start] >= arr[mid - 1])
+            end = mid - 1;
+         
+        else
+            start = mid + 1;
+    }
+
+    return 0;
+}
