@@ -34,18 +34,20 @@ void insertatEnd(node *&head,int data)
     
 }
 
-void searchfromlast(node*head,int t)
+int searchfromlast(node*head,int t)
 {
     
     node*s=head;
     node*e=head;
     
-    for(int i=0;i<t;i++)
+    for(int i=0;i<t-1;i++)
     {
         e=e->next;
+	if(e == NULL)
+		return -1;
     }
     
-    while(e!=NULL)
+    while(e->next != NULL)
     {
         s=s->next;
         e=e->next;
