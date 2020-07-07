@@ -33,25 +33,15 @@ node *buildtree()
 
 void onechild(node *root)
 {
-    if(root==NULL)
+    if(root == NULL)
         return;
-if (root->left != NULL && root->right != NULL)
-    {
-        onechild(root->left);
-        onechild(root->right);
-    }
- 
-    else if (root->right != NULL)
-    {
-        cout << root->data << " ";
-        onechild(root->right);
-    }
- 
-    else if (root->left != NULL)
-    {
-        cout << root->data << " ";
-        onechild(root->left);
-    }
+    if(root->left == NULL && root->right != NULL)
+        cout<<root->right->data<<" ";
+    else if(root->right == NULL && root->left != NULL)
+        cout<<root->left->data<<" ";
+    
+    onechild(root->left); 
+    onechild(root->right); 
 }
 
 int main() {
