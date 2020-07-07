@@ -1,0 +1,55 @@
+class solver
+{
+private:
+
+public:
+
+    bool nodeToRoot(Node *root, int target, vector<Node*> &v){
+        if(root == NULL)
+            return false;
+        if(root->data == target){
+            v.push_back(root);
+            return true;
+        }  
+        bool lc = nodeToRoot(root->left, target,v);
+        if(lc){
+            v.push_back(root);
+            return true;
+        }
+        bool rc = nodeToRoot(root->right, target,v);
+        if(rc){
+            v.push_back(root);
+            return true;
+        }
+        return false;
+    }
+    
+    void levelNodes(Node *root, int  level, Node *blocker, vector<int> &v){
+        if(root == NULL || level < 0 || root == blocker)
+            return;
+        if(level == 0){
+            v.push_back(root->data);
+            return;
+        }
+        levelNodes(root->left,level-1,blocker,v);
+        levelNodes(root->right,level - 1, blocker,v);
+    }
+    
+    vector <int> KDistanceNodes(Node* root, int target , int k)
+    {
+        // return the sorted vector of all nodes at k dist
+        vector<int> ans;
+        vector<Node*> v;
+        // node to root path
+        bool check = nodeToRoot(root,target,v);
+        if(!check)
+            return ans;
+        
+        for(int i = 0; i < v.size(); i++){
+          // level order print with blocker
+          levelNodes(v[i],k - i,i == 0 ? NULL:v[i-1],ans);  
+        }    
+        sort(ans.begin(),ans.end());
+        return ans;
+    }
+};
