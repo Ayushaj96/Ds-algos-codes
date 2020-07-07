@@ -50,22 +50,6 @@ void printlevel(node *root,int level)
 			
 }
 
-void printlevel2(node *root,int level)
-{
-	if(root==NULL)
-		return;
-	
-	if(level==0)
-	{
-		cout<<root->data<< " ";
-		}
-		
-	printlevel(root->right,level-1);
-	printlevel(root->left,level-1);
-			
-}
-
-
 int heightoftree(node* root)
 {
 	if(root==NULL)
