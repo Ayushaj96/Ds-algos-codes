@@ -1,0 +1,20 @@
+ void paths(Node *root, string s){
+     if(root == NULL)
+        return;
+     s += to_string(root->data) + " ";
+     if(root->left == NULL && root->right == NULL){
+        cout<<s<<"#";   
+        return;
+     }
+    
+     paths(root->left,s);
+     paths(root->right,s);
+ }
+ 
+void printPaths(Node* root)
+{
+    // Code here
+    string v;
+    paths(root,v);
+    cout<<endl;
+}
