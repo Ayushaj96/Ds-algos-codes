@@ -1,0 +1,44 @@
+// return a vector containing the zig zag level order traversal of the given tree
+vector <int> zigZagTraversal(Node* root)
+{
+	// Code here
+	vector<int> ans;
+	if(root == NULL)
+	    return ans;
+	  
+	stack<Node*> ms;
+	ms.push(root);
+	
+	stack<Node*> cs;
+	int level = 1;
+	
+	while(!ms.empty()){
+	    root = ms.top();
+	    ms.pop();
+	    ans.push_back(root->data);
+	    
+	    if(level&1){ // if odd move from left to right
+	        if(root->left != NULL)
+	            cs.push(root->left);
+	        if(root->right != NULL)
+	            cs.push(root->right);
+	    }
+	    else{ // move from right to left
+	        if(root->right != NULL)
+	            cs.push(root->right);
+	        if(root->left != NULL)
+	            cs.push(root->left);
+	    }
+	    
+	    
+	    if(ms.size() == 0){
+	        ms.swap(cs);
+	        while(!cs.empty())
+	            cs.pop();
+	        level++;
+	    }
+	    
+	}
+	
+    return ans;	    
+}
