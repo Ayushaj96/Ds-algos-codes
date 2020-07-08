@@ -1,0 +1,67 @@
+// Recursive O(n^2)
+
+int height(Node *root){
+    if(root == NULL)
+        return -1; //for edges
+    
+    int lh = height(root->left);
+    int rh = height(root->right);
+    return 1 + max(lh,rh);
+}
+
+/* Computes the diameter of binary tree with given root.  */
+int diameter(Node* node) {
+    // Your code here
+    if(node == NULL)
+        return 0;
+    
+    int lh = diameter(node->left);
+    int rh = diameter(node->right);
+    int f = height(node->left)+height(node->right)+2; //+2 for edges, +1 for nodes
+    
+    return max(f,max(lh,rh));
+}
+
+// Recursive O(n)
+// Trick is to calculate height in the same function
+
+class Diapair{
+    
+public:        
+    int ht;
+    int dia;
+    
+    Diapair(int h, int d){
+        ht = h;
+        dia = d;
+    }
+};
+/* Computes the diameter of binary tree with given root.  */
+
+Diapair *diameter2(Node *root){
+    if(root == NULL){
+        Diapair *d = new Diapair(0,0);
+        return d;
+    }
+    
+    Diapair *lp = diameter2(root->left);
+    Diapair *rp = diameter2(root->right);
+    
+    Diapair *mp = new Diapair(0,0);
+    mp->ht = max(lp->ht,rp->ht)+1;
+    
+    int f = lp->ht + rp->ht + 1;
+    mp->dia = max(f, max(lp->dia,rp->dia));
+    
+    return mp;
+    
+}
+
+int diameter(Node* node) {
+    // Your code here
+    if(node == NULL)
+        return 0;
+    Diapair *ans = diameter2(node);
+    
+    return ans->dia;
+}
