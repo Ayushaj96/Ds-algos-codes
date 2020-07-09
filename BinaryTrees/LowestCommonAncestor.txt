@@ -1,75 +1,50 @@
-#include <iostream>
-#include <vector>
-#include <cstring>
-using namespace std;
-class node{
-
-   public:
-    string data;
-    node *left;
-    node *right;
-
-    node(string d){
-        data=d;
-        left=NULL;
-        right=NULL;
-    }
-};
-
-node *buildTree(){
-  string data;
-  cin>>data;
-
-  if(data=="false"){
-      return NULL;
-  }
-  if(data=="true"){
-      cin>>data;
-  }
-
-  node *n=new node(data);
-  n->left=buildTree();
-  n->right=buildTree();
-  return n;
-}
-
-
-
-bool printPreorder(node *root,vector<string> &v,int maxvalue){
-    if(root==NULL){
+bool nodeToRoot(Node *root, int k, vector<Node*> &v){
+    if(root == NULL)
         return false;
+    if(root->data == k){
+        v.push_back(root);
+        return true;
     }   
-    v.push_back(root->data);
-
-    if(stoi(root->data)==maxvalue)
+    bool lc = nodeToRoot(root->left,k,v);
+    if(lc){
+        v.push_back(root);
         return true;
-
-  if(root->left&&  printPreorder(root->left,v,maxvalue))
-    return true;
-    if(root->right && printPreorder(root->right,v,maxvalue))
+    }
+    bool rc = nodeToRoot(root->right,k,v);
+    if(rc){
+        v.push_back(root);
         return true;
-
-    v.pop_back();
+    }
+    
     return false;
 }
-int main() {
+
+Node* lca(Node* root ,int n1 ,int n2 )
+{
+   //Your code here 
+   if(root == NULL){
+       return root;
+   }
+   
+   vector<Node*> a,b;
+   if(!nodeToRoot(root,n1,a))
+        return root;
     
-    node *root=NULL;
-    vector<string> v;
-    vector<string> v1;
-    string s;
-    root=buildTree();
-    int k1,k2;
-    cin>>k1>>k2;
- bool ans= printPreorder(root,v,k1);
- bool ans2=printPreorder(root,v1,k2);
- if(ans&&ans2){
-      for(int i=0;i<v.size()&&i<v1.size();i++){
-          if(v[i]==v1[i])
-             s=v[i];     }  
- }
- cout<<s;
-
-    return 0;
+   if(!nodeToRoot(root,n2,b))
+        return root;  
+        
+    int i = a.size() - 1;
+    int j = b.size() - 1;
+    Node *ans;
+    while(i >= 0 && j >= 0){
+        if(a[i]->data != b[j]->data) // uncommon found
+            break;
+        else
+            ans = a[i]; // save common Node
+        i--;
+        j--;
+    }
+    
+    return ans;
+        
 }
-
