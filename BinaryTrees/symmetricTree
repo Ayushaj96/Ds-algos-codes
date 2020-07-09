@@ -1,0 +1,27 @@
+//Given a Binary Tree. Check whether it is Symmetric or not, i.e. whether the binary tree is a Mirror image of itself or not.
+
+
+bool checkSymmetric(struct Node *root1, struct Node *root2){
+    if(root1 == NULL && root2 == NULL)
+        return true;
+        
+    if(root1 != NULL && root2 != NULL){
+        if(root1->data != root2->data)
+            return false;
+        bool lc = checkSymmetric(root1->left, root2->right);
+        bool rc = checkSymmetric(root1->right,root2->left);
+        
+        return lc && rc;
+    }    
+    
+    return false;
+}
+// return true/false denoting whether the tree is Symmetric or not
+bool isSymmetric(struct Node* root)
+{
+	// Code here
+	if(root == NULL)
+	    return true;
+	   
+	 return checkSymmetric(root->left, root->right);   
+}
