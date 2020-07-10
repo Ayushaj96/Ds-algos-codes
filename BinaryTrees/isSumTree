@@ -1,0 +1,45 @@
+
+class SumPair{
+  public:
+    bool isSumTree;
+    int sum;
+    
+    SumPair(){
+        isSumTree = true;
+        sum = 0; 
+    }
+};
+
+// sum is calculated in same function so complexity is O(n)
+SumPair* checkTree(Node *root){
+    if(root == NULL){
+        SumPair *s = new SumPair();
+        return s;
+    }
+    
+    SumPair *lc = checkTree(root->left);
+    SumPair *rc = checkTree(root->right);
+    
+    SumPair *temp = new SumPair();
+    temp->sum = root->data;
+    
+    if(root->left != NULL || root->right != NULL){
+        int val = lc->sum + rc->sum ;
+        temp->isSumTree = lc->isSumTree && rc->isSumTree && (val == root->data);
+        temp->sum = val + root->data;
+    }
+    
+    return temp;
+}
+
+// Should return true if tree is Sum Tree, else false
+bool isSumTree(Node* root)
+{
+     // Your code here
+     if(root == NULL)
+        return true;
+        
+    SumPair *s =  checkTree(root);
+    return s->isSumTree;
+  
+}
