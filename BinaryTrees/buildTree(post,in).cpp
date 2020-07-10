@@ -18,29 +18,27 @@ class node
 		}
 };
 
-int findIndex(vector<int>& inorder, int i, int j, int val)
-{
-    for (int b = i; b<=j; ++b)
-        if (inorder[b] == val)
-            return b;
-}
-
-node* makeTree(vector<int> &inorder, vector<int> &postorder, int i, int j, int& p)
-{
-    if (i>j)
+node *construct(int *post, int psi, int pli, int *in, int isi, int ili){
+    if(psi > pli || isi > ili)
         return NULL;
-    node* n = new node(postorder[p--]);
-    if (i==j)
-        return n;
-    int in = findIndex(inorder, i, j, n->data);
-    n->right = makeTree(inorder, postorder, in+1, j, p);
-    n->left = makeTree(inorder, postorder, i, in-1, p);
-    return n;
+    
+    node *n = new node(post[pli]);
+    
+    int idx = -1;
+    for(idx = isi; idx <= ili; idx++){
+        if(post[pli] == in[idx])
+            break;
+    }
+    
+    int len = ili - idx;
+    n->left = construct(post,psi,pli - len - 1,in,isi, idx - 1);
+    n->right = construct(post,pli - len,pli-1,in,idx + 1,ili);
 }
 
-node *buildtree(vector<int> &inorder, vector<int> &postorder) {
-    int p = postorder.size()-1;
-    return inorder.empty() ? NULL : makeTree(inorder, postorder, 0, inorder.size()-1, p);
+node *buildTree(int in[], int post[], int n) {
+    // Your code here
+    
+    return construct(post,0,n-1,in,0,n-1);
 }
 
 
@@ -100,7 +98,7 @@ int main()
 		inorder.push_back(temp);
 	}
 	
-root=buildtree(inorder,postorder);
+root=buildTree(inorder,postorder);
 print2(root);
 cout<<endl;
 
