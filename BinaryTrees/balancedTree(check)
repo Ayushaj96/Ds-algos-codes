@@ -22,7 +22,7 @@ BalPair* checkBal(Node *root){
     BalPair* lc = checkBal(root->left);
     BalPair* rc = checkBal(root->right);
     
-    BalPair *temp = new BalPair;
+    BalPair *temp = new BalPair();
     temp->isbal = lc->isbal && rc->isbal && abs(lc->height - rc->height) <= 1;
     temp->height = max(lc->height,rc->height) + 1;
     
