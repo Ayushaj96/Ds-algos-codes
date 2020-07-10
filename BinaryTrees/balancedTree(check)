@@ -1,0 +1,40 @@
+
+class BalPair{
+    public :
+        bool isbal;
+        int height;
+        
+        BalPair(){
+            isbal = true;
+            height = -1;
+        }
+};
+
+// calculate height in the same function to reduce complexity,
+// same done in diameter of binary tree
+BalPair* checkBal(Node *root){
+    
+    if(root == NULL){
+        BalPair *b = new BalPair();
+        return b;
+    }
+    
+    BalPair* lc = checkBal(root->left);
+    BalPair* rc = checkBal(root->right);
+    
+    BalPair *temp = new BalPair;
+    temp->isbal = lc->isbal && rc->isbal && abs(lc->height - rc->height) <= 1;
+    temp->height = max(lc->height,rc->height) + 1;
+    
+    return temp;;
+}
+
+bool isBalanced(Node *root)
+{
+    //  Your Code here
+    if(root == NULL)
+        return true;
+        
+    BalPair *n = checkBal(root);
+    return n->isbal;
+}
