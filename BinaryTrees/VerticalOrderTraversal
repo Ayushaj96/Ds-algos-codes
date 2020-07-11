@@ -1,0 +1,39 @@
+vector<int> verticalOrder(Node *root)
+{
+    //Your code here
+    vector<int> arr;
+    if(root == NULL)
+        return arr;
+    
+    int level = 0;
+    queue<pair<Node*,int>> q; // Node , level
+    q.push({root,level});
+    
+    multimap <int, int> m;  // level, node->data
+    pair<Node*,int> p;
+    int nodes = 0;
+    
+    while(!q.empty()){
+        nodes = q.size();
+        while(nodes){
+            p = q.front();
+            q.pop();
+            m.insert({p.second,p.first->data});
+            
+            if(p.first->left != NULL)
+                q.push({p.first->left,p.second - 1});
+            
+            if(p.first->right != NULL)
+                q.push({p.first->right,p.second + 1});    
+            nodes--;
+        }
+    } 
+    multimap <int, int> :: iterator itr; 
+    for (itr = m.begin(); itr != m.end(); ++itr) 
+    { 
+        arr.push_back(itr->second); 
+    } 
+    
+    
+    return arr;
+}
