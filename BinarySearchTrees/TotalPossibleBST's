@@ -1,0 +1,29 @@
+#include <iostream>
+using namespace std;
+
+int dp[100] = {0};
+// catalan Number concept
+int UniqueBst(int n){
+    if(n == 0)
+        return 1;
+    if(dp[n] != 0)
+        return dp[n];
+    int ans = 0;
+    for(int i = 1; i <= n; i++)
+        ans += UniqueBst(i - 1)*UniqueBst(n-i);
+    dp[n] = ans;
+    return ans;
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	while(T--){
+	    int n;
+	    cin>>n;
+	    
+	    cout<<UniqueBst(n)<<endl;
+	}
+	return 0;
+}
