@@ -1,0 +1,22 @@
+bool checkBST(Node *root, int minV, int maxV){
+    if(root == NULL)
+        return true;
+    
+    if(root->data > minV && root->data < maxV){
+        bool lc = checkBST(root->left,minV,root->data);
+        bool rc = checkBST(root->right,root->data,maxV);
+        
+        return lc && rc;
+    }    
+    
+    return false;
+}
+
+// return true if the given tree is a BST, else return false
+bool isBST(Node* root) {
+    // Your code here
+    if(root == NULL)
+        return true;
+    return checkBST(root,INT_MIN,INT_MAX);
+
+}
