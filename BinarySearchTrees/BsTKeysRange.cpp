@@ -46,19 +46,19 @@ void preordertree(node*root)
     preordertree(root->right);
 }
 
-void checktree(node*root,int k1,int k2)
+void nodesInRange(node*root,int k1,int k2)
 {
      if (root==NULL )
       return;
  
    if ( k1 < root->data )
-     checktree(root->left, k1, k2);
+     nodesInRange(root->left, k1, k2);
  
    if ( k1 <= root->data && k2 >= root->data )
      cout<<root->data<<" ";
  
    if ( k2 > root->data )
-     checktree(root->right, k1, k2);
+     nodesInRange(root->right, k1, k2);
 }
 int main()
 {
@@ -79,7 +79,7 @@ int main()
         cout<<"# Preorder : ";
         preordertree(root);
         cout<<endl<<"# Nodes within range are : ";
-        checktree(root,k1,k2);
+        nodesInRange(root,k1,k2);
         
         
     }
