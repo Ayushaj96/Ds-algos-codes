@@ -1,0 +1,34 @@
+Node *constructTree (int post[], int size)
+{
+//code here
+    if(size == 0)
+        return NULL;
+    
+    Node *root = new Node(post[size - 1]);
+    stack<Node*> s;
+    s.push(root);
+    
+    
+    Node *temp;
+    
+    for(int i = size - 2; i >= 0; i--){
+        temp = NULL;
+        while(!s.empty() && s.top()->data > post[i]){
+            temp = s.top();
+            s.pop();
+        }
+        if(temp != NULL){
+            temp->left = new Node(post[i]);
+            s.push(temp->left);
+        }
+        // top is less than cur so it should be right child
+        else{
+            temp = s.top();
+            temp->right = new Node(post[i]);
+            s.push(temp->right);
+        }
+            
+    }
+    
+    return root;
+}
