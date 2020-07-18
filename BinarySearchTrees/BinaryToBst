@@ -1,0 +1,34 @@
+
+void inorder(Node *root, vector<int> &v){
+    if(root == NULL)
+        return;
+    inorder(root->left,v);
+    v.push_back(root->data);
+    inorder(root->right,v);
+}
+
+void binaryToBst(Node *root, vector<int> &v, int &index){
+    if(root == NULL)
+        return;
+    
+    binaryToBst(root->left,v,index);
+    root->data = v[index];
+    index++;
+    binaryToBst(root->right,v,index);
+}
+// The given root is the root of the Binary Tree
+// Return the root of the generated BST
+Node *binaryTreeToBST (Node *root)
+{
+    //Your code goes here
+    if(root == NULL)
+        return NULL;
+    vector<int> v;
+    inorder(root,v);
+    
+    sort(v.begin(),v.end());
+    int index = 0;
+    binaryToBst(root,v,index);
+    
+    return root;
+}
