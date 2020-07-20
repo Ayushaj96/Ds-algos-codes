@@ -1,0 +1,59 @@
+class BSTPair {
+    public:
+        bool isBST;
+        int minv, maxv;
+        Node *lbstroot;
+        int lbstSize;
+        
+        BSTPair(){
+            isBST = true;
+            minv = INT_MAX;
+            maxv = INT_MIN;
+            lbstroot = NULL;
+            lbstSize = 0;
+        }
+};
+
+
+BSTPair* isBST(Node *root){
+    if(root == NULL){
+        BSTPair *temp = new BSTPair();
+        return temp;
+    }
+    
+    BSTPair *lc = isBST(root->left);
+    BSTPair *rc = isBST(root->right);
+    
+    BSTPair *mp = new BSTPair();
+    mp->isBST = lc->isBST && rc->isBST && root->data > lc->maxv && root->data < rc->minv;
+    mp->maxv = max(root->data,max(lc->maxv,rc->maxv));
+    mp->minv = min(root->data,min(lc->minv,rc->minv));
+    
+    if(mp->isBST){
+        mp->lbstroot = root;
+        mp->lbstSize = lc->lbstSize + rc->lbstSize + 1;
+    }
+    else if(lc->lbstSize > rc->lbstSize){
+        mp->lbstroot = lc->lbstroot;
+        mp->lbstSize = lc->lbstSize;
+    }
+    else{
+        mp->lbstroot = rc->lbstroot;
+        mp->lbstSize = rc->lbstSize;
+    }
+    return mp;
+    
+}
+
+/*You are required to complete this method */
+// Return the size of the largest sub-tree which is also a BST
+int largestBst(Node *root)
+{
+	//Your code here
+	if(root == NULL)
+	    return 0;
+	 BSTPair *ans = isBST(root);
+	 
+	 
+	 return ans->lbstSize;
+}
