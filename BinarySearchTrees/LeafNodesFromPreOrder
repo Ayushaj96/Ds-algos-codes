@@ -1,0 +1,45 @@
+#include <iostream>
+#include <climits>
+#include <set>
+using namespace std;
+
+bool leafNodes(int *arr, int n, int minv, int maxv, int &index){
+    if(n == index){
+        return false;
+    }
+        
+    if(arr[index] > minv && arr[index] < maxv){
+        int val = arr[index];
+        index++;
+        bool lc = leafNodes(arr,n,minv,val,index);
+        bool rc = leafNodes(arr,n,val,maxv,index);
+    
+        if(!lc && !rc)
+            cout<<val<<" ";
+        return true;    
+    }
+    
+    return false;
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int n;
+	    cin>>n;
+	    
+	    int arr[n];
+	    for(int i = 0; i < n; i++)
+	        cin>>arr[i];
+	        
+	    int index = 0;  
+	    leafNodes(arr,n, INT_MIN, INT_MAX, index);
+	    
+	    cout<<endl;
+	    
+	}
+	return 0;
+}
