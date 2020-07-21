@@ -1,0 +1,27 @@
+
+void fixBST(Node *root, Node*&first, Node*&last, Node*&prev){
+    if(root == NULL)
+        return;
+    fixBST(root->left,first,last,prev);
+    if(prev != NULL && prev->data > root->data){
+        if(first == NULL)
+            first = prev;
+        last = root;    
+    }
+    prev = root;
+    
+    fixBST(root->right,first,last,prev);
+}
+
+struct Node *correctBST( struct Node* root )
+{
+    // add code here.
+    if(root == NULL)
+        return NULL;
+    
+    Node *first = NULL, *last = NULL, *prev = NULL;
+    fixBST(root,first,last,prev);
+    
+    swap(first->data,last->data);
+    return root;
+}
