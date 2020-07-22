@@ -1,0 +1,82 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class maxHeap{
+  vector<int> v; 
+   void heapify(int index){
+    
+        int lchild = 2*index;
+        int rchild = lchild + 1;
+        
+        int maxIndex = index;
+        if(lchild < v.size() && v[lchild] > v[index]){
+            maxIndex = lchild;
+        }
+        if(rchild < v.size() && v[rchild] > v[maxIndex]){
+            maxIndex = rchild;
+        }
+        if(maxIndex != index){
+            swap(v[index], v[maxIndex]);
+            heapify(maxIndex); // recursive call till node is at its correct position
+        }
+    }
+  public:
+    maxHeap(){
+        v.push_back(-1);
+    }
+  
+  void push(int d){
+      v.push_back(d);
+      int index = v.size() - 1;
+      int parent = index/2;
+      while(index > 1 && v[index] > v[parent]){
+          swap(v[index], v[parent]);
+          index = parent;
+          parent = parent/2;
+      }
+  }
+  
+   
+    int getMax(){
+        if(v.size() == 1)
+            return -1;
+        return v[1];
+    }
+    
+    void pop(){
+        if(v.size() == 1)
+            return;
+        int last = v.size() - 1;
+        swap(v[1], v[last]);
+        v.pop_back(); // remove last element
+        heapify(1);
+    }
+        
+    bool isEmpty(){
+        return v.size() == 1;
+    }
+};
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	while(T--){
+	    int n,k;
+	    cin>>n>>k;
+	    
+	    maxHeap m;
+	    int num;
+	    for(int i = 0; i < n; i++){
+	        cin>>num;
+	        m.push(num);
+	    }
+	    while(k--){
+	        cout<<m.getMax()<<" ";
+	        m.pop();
+	    }
+	    cout<<endl;
+	}
+	return 0;
+}
