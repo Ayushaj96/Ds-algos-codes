@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int n;
+	    cin>>n;
+	    
+	    int arr[n];
+	    for(int i = 0; i < n; i++)
+	        cin>>arr[i];
+	    
+	    int x,k;
+	    cin>>k>>x;
+	    
+	    priority_queue<pair<int,int>> pq;
+	    for(int i = 0; i < n; i++){
+	        
+	        int diff = abs(x - arr[i]);
+	            
+	        if(pq.size() >= k && diff < pq.top().first){
+	            pq.pop();
+	            pq.push({diff,arr[i]});
+	        }
+	        else if(pq.size() < k)
+	            pq.push({diff,arr[i]});         
+	    }
+	 
+	    while(!pq.empty()){
+	        cout<<pq.top().second<<" ";
+	        pq.pop();
+	    }
+	   cout<<endl;
+	}
+	return 0;
+}
