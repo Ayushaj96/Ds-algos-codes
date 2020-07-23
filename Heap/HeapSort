@@ -1,0 +1,45 @@
+void heapify(int arr[], int n, int i)  {
+      // Your Code Here
+        int lchild = 2*i + 1;
+        int rchild = lchild + 1;
+        
+        int maxIndex = i;
+        if(lchild < n && arr[lchild] > arr[i]){
+            maxIndex = lchild;
+        }
+        if(rchild < n && arr[rchild] > arr[maxIndex]){
+            maxIndex = rchild;
+        }
+        if(maxIndex != i){
+            swap(arr[i], arr[maxIndex]);
+            heapify(arr,n,maxIndex); // recursive call till node is at its correct position
+        }
+}
+
+// Rearranges input array so that it becomes a max heap
+void buildHeap(int arr[], int n)  { 
+    // Your Code Here
+    if(n == 0)
+        return;
+    int parent, index;
+    for(int i = 0; i < n; i++){
+        parent = (i-1)/2;
+        index = i;    
+        while(index > 0 && arr[parent] < arr[index]){
+                swap(arr[parent], arr[index]);
+                index = parent;
+                parent = (parent-1)/2;
+            }
+    }    
+}
+
+void heapSort(int arr[], int n)
+{
+    buildHeap(arr, n);
+    for (int i=n-1; i>=0; i--)
+    {
+        swap(arr[0], arr[i]);
+        heapify(arr, i, 0);
+    }
+}
+
