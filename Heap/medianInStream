@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	priority_queue<int> lheap;
+	priority_queue<int,vector<int>,greater<int>> rheap;
+	
+	while(T--){
+	    int n;
+	    cin>>n;
+	    
+	    if(lheap.size() == 0 && rheap.size() == 0)
+	        lheap.push(n);
+	    else if(n <= lheap.top())
+	        lheap.push(n);
+	    else
+	        rheap.push(n);
+	    
+	    if(abs(lheap.size() - rheap.size()) > 1){
+	        if(lheap.size() > rheap.size()){
+	            rheap.push(lheap.top());
+	            lheap.pop();
+	        }
+	        else{
+	            lheap.push(rheap.top());
+	            rheap.pop();
+	        }
+	            
+	    }
+	        
+	    int median = 0;
+	    if(lheap.size() == rheap.size()){
+	        median = (lheap.top() + rheap.top())/2;
+	    }
+	    else if(lheap.size() > rheap.size())
+	        median = lheap.top();
+	    else
+	        median = rheap.top();
+	   
+	    cout<<median<<endl;     
+	        
+	}
+	return 0;
+}
