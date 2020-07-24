@@ -13,14 +13,16 @@ int main() {
 	    int n;
 	    cin>>n;
 	    
+	    // heaps empty , push element to max heap
 	    if(lheap.size() == 0 && rheap.size() == 0)
 	        lheap.push(n);
-	    else if(n <= lheap.top())
+	    else if(n <= lheap.top()) // if element less than median, push it to left of median
 	        lheap.push(n);
 	    else
-	        rheap.push(n);
-	    
-	    if(abs(lheap.size() - rheap.size()) > 1){
+	        rheap.push(n); // else push it to right of median
+		
+	    // heaps imbalanced
+	    if(abs(lheap.size() - rheap.size()) > 1){ 
 	        if(lheap.size() > rheap.size()){
 	            rheap.push(lheap.top());
 	            lheap.pop();
@@ -33,9 +35,11 @@ int main() {
 	    }
 	        
 	    int median = 0;
+	    // same size of both heaps then median is (top1 + top2)/2
 	    if(lheap.size() == rheap.size()){
 	        median = (lheap.top() + rheap.top())/2;
 	    }
+	    // heap having more elements will be median
 	    else if(lheap.size() > rheap.size())
 	        median = lheap.top();
 	    else
