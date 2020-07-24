@@ -1,0 +1,26 @@
+typedef pair<int,pair<int,int>>pq;
+
+int *mergeKArrays(int arr[][N], int k)
+{
+//code here
+    int *res = new int[k*k];
+    priority_queue<pq, vector<pq>, greater<pq>> p;
+    
+    for(int i = 0; i < k; i++)
+        p.push({arr[i][0],{i,0}});
+    
+    int j = 0;
+    while(!p.empty()){
+        pq cur = p.top();
+        p.pop();
+        res[j++] = cur.first;
+        int iarr = cur.second.first;
+        int iele = cur.second.second;
+        if(iele<k-1)
+         {
+             p.push(make_pair(arr[iarr][iele+1], make_pair(iarr,iele+1) ));
+             
+         }
+    }
+    return res;
+}
