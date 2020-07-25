@@ -1,0 +1,48 @@
+void inorder(Node *root, string &str){
+    if(root == NULL){
+         str.append("#");
+         return;
+    }
+    inorder(root->left,str);
+    str.append(to_string(root->data));
+    inorder(root->right,str);
+}
+
+void preorder(Node *root, string &str){
+    if(root == NULL){
+        str.append("#");
+        return;
+    }
+    str.append(to_string(root->data));
+    preorder(root->left,str);
+    preorder(root->right,str);
+}
+
+/*you are required to
+complete this function */
+bool isSubTree(Node* T, Node* S) {
+    // Your code here
+    // return 1 if S is subtree of T else 0
+    if(S == NULL)
+        return true;
+    if(T == NULL)
+        return false;
+    
+    string tree1;
+    string tree2;
+    inorder(T,tree1);
+    inorder(S,tree2);
+    
+    if(tree1.find(tree2) == -1)
+        return false;
+        
+    string _tree1, _tree2;
+    
+    preorder(T,_tree1);
+    preorder(S,_tree2);
+    if(_tree1.find(_tree2) == -1)
+        return false;
+    
+    return true;    
+        
+}
