@@ -1,0 +1,43 @@
+typedef pair<int,pair<int,int>> pi;
+
+void findSmallestRange(int arr[][N], int n, int k)
+{
+      //code here
+      priority_queue<pi,vector<pi>,greater<pi>> pq;
+      
+      int _max = INT_MIN;
+      for(int i = 0; i < k; i++){
+        pq.push({arr[i][0],{i,0}});
+        _max = max(_max,arr[i][0]);
+      }
+      
+      int _min = INT_MAX, range = INT_MAX;
+      int row,col;
+      int start, end;
+      
+      while(1) {
+          
+        row = pq.top().second.first;
+        col = pq.top().second.second;
+        _min = pq.top().first;
+        pq.pop();
+        
+        if (range > _max - _min + 1) { 
+            range = _max - _min + 1; 
+            start = _min; 
+            end = _max; 
+        }
+        
+        if(col < (n - 1)){
+            pq.push({arr[row][col+1],{row,col+1}});
+            
+            if(arr[row][col+1] > _max)
+                _max = arr[row][col + 1];
+        }
+        else
+            break;
+      }
+      
+      
+      cout<<start<<" "<<end<<endl;
+}
