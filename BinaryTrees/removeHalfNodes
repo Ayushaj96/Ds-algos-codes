@@ -1,0 +1,21 @@
+// Return the root of the modified tree after removing all the half nodes.
+Node *RemoveHalfNodes(Node *root)
+{
+   //add code here.
+   if(root == NULL)
+        return NULL;
+        
+    root->left = RemoveHalfNodes(root->left);
+    root->right = RemoveHalfNodes(root->right);
+    if(root->left == NULL && root->right != NULL){
+        Node *temp = root->right;
+        delete root;
+        return temp;
+    }
+    if(root->left != NULL && root->right == NULL){
+        Node *temp = root->left;
+        delete root;
+        return temp;
+    }
+    return root;
+}
