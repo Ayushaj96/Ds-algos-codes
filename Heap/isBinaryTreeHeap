@@ -1,0 +1,70 @@
+bool checkLevel(Node *root){
+    
+    if(root == NULL)
+        return true;
+    
+    queue<Node*> q;
+    q.push(root);
+    int nodes = 0;
+    
+    while(!q.empty()){
+        nodes = q.size();
+        while(nodes--){
+            root = q.front();
+            q.pop();
+            if(root->left != NULL){
+                if(root->left->data > root->data)
+                    return false;
+                q.push(root->left);    
+            }
+            if(root->right != NULL){
+                if(root->right->data > root->data)
+                    return false;
+                q.push(root->left);    
+            }
+        }
+    }
+    return true;
+}
+
+bool isCompleteBT(Node *root){
+    
+    if(root == NULL)
+        return true;
+    queue<Node*> q;
+    q.push(root);
+    
+    bool flag = false;
+    while(!q.empty()){
+        root = q.front();
+        q.pop();
+        
+        if(root->left != NULL){
+            if(flag == true)
+                return false;
+            q.push(root->left);    
+        }
+        else
+            flag = true;
+        
+        if(root->right != NULL){
+             if(flag == true)
+                return false;
+            q.push(root->right); 
+        }
+        else
+            flag = true;
+    }
+    
+    return true;
+}
+
+/*You are required to complete this method */
+bool isHeap(Node * root)
+{
+ // Your code here
+    if(root == NULL)
+        return true;
+    
+    return isCompleteBT(root) &&  checkLevel(root);  
+}
