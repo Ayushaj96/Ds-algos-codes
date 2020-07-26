@@ -1,0 +1,35 @@
+void serialize(Node *root,vector<int> &A)
+{
+    //Your code here
+    if(root == NULL){
+        A.push_back(-1);
+        return;
+    }
+    
+    A.push_back(root->data);
+    serialize(root->left,A);
+    serialize(root->right,A);
+}
+
+/*this function deserializes
+ the serialized vector A*/
+ Node *buildTree(vector<int> A, int &i){
+    if(i >= A.size())
+        return NULL;
+    if(A[i] == -1){
+        i++;
+        return NULL;
+    }
+    Node *n = new Node(A[i]);
+    i++;
+    n->left = buildTree(A,i);
+    n->right = buildTree(A,i);
+    
+    return n;
+ }
+Node * deSerialize(vector<int> &A)
+{
+   //Your code here
+   int i = 0;
+   return buildTree(A,i);
+}
