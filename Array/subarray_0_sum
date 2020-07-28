@@ -1,0 +1,19 @@
+int maxLen(int arr[], int n)
+{
+    // Your code here
+    unordered_map<int,int> m;
+    m[0] = -1;
+    
+    int sum = 0, length = 0;
+    for(int i = 0; i < n; i++){
+        sum += arr[i];
+        if(m.find(sum) == m.end())
+            m[sum] = i;
+        else
+        {
+            length = max(length, i - m[sum]);
+        }
+    }
+    
+    return length;
+}
