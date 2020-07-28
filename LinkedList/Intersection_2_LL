@@ -1,0 +1,30 @@
+Node* findIntersection(Node* head1, Node* head2)
+{
+    // code here
+    // return the head of intersection list
+    if(head1 == NULL || head2 == NULL)
+        return NULL;
+        
+    unordered_map<int,int> m;
+    while(head2 != NULL){
+        m[head2->data]++;
+        head2 = head2->next;
+    }
+    Node *temp = NULL, *head = NULL;
+    while(head1 != NULL){
+        if(m.find(head1->data) != m.end()){
+            if(temp == NULL){
+                temp = head1;
+                head = temp;
+            }
+            else{
+                temp->next = head1;
+                temp = temp->next;
+            }
+        }
+        head1 = head1->next;
+    }
+    if(temp != NULL)
+        temp->next = NULL;
+    return head;
+}
