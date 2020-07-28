@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int n;
+	    cin>>n;
+	    string str;
+	    cin>>str;
+	    
+	    int arr[26];
+	    for(int i = 0; i < 26; i++)
+	        arr[i] = -1;
+	   
+	    for(int i = 0; i < str.length(); i++){
+	        if(arr[str[i] - 'a'] == -1)
+	            arr[str[i] - 'a'] = i;
+	        else
+	            arr[str[i] - 'a'] = -2;
+	    }
+
+	    int index = INT_MAX;
+	    for(int i = 0; i < str.length(); i++){
+	        if(arr[str[i] - 'a'] >= 0)
+	            index = min(index, arr[str[i] - 'a']);
+	    }
+	 
+	   if(index == INT_MAX)
+	        cout<<-1;
+	   else{
+	        cout<<str[index];
+	   }
+	       
+	   cout<<endl;     
+	}
+	return 0;
+}
