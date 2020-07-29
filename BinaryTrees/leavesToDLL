@@ -1,0 +1,38 @@
+bool inorder(Node *root, Node *&head, Node *&prev){
+    if(root == NULL)
+        return false;
+    if(root->left == NULL && root->right == NULL){
+        if(head == NULL){
+            head = root;
+            head->left = NULL;
+            prev = head;
+        }
+        else{
+            prev->right = root;
+            root->left = prev;
+            prev = root;
+        }
+        return true;
+    }    
+        bool lc = inorder(root->left,head,prev);
+        if(lc){
+            root->left = NULL;
+        }
+        bool rc = inorder(root->right,head,prev);
+        if(rc)
+            root->right = NULL;
+            
+        return false;
+    }    
+
+
+// return the head of the DLL and remove those node from the tree as well.
+Node * convertToDLL(Node *root){
+    // add code here.
+    if(root == NULL)
+        return NULL;
+    Node *head = NULL, *prev = NULL;
+    bool check = inorder(root,head,prev);
+    
+    return head;
+}
