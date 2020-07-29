@@ -1,0 +1,34 @@
+*/
+ void inorder(Node *root, Node *&head, Node *&prev){
+     if(root == NULL)
+        return;
+    
+    inorder(root->left,head,prev);
+    if(head == NULL){
+        head = root;
+        head->left = NULL;
+        prev = head;
+    }
+    else{
+        prev->right = root;
+        root->left = prev;
+        prev = root;
+    }
+    inorder(root->right,head,prev);
+ }
+
+// This function should return head to the DLL
+
+Node * bToDLL(Node *root)
+{
+    // your code here
+    if(root == NULL)
+        return NULL;
+    
+    Node *head = NULL, *prev = NULL;
+    inorder(root,head,prev);
+    if(prev != NULL)
+        prev->right = NULL;
+    
+    return head;    
+}
