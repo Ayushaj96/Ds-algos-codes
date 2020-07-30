@@ -1,0 +1,37 @@
+class mytilt{
+    public:
+        int sum;
+        int tilt;
+        
+        mytilt(){
+            sum = 0;
+            tilt = 0;
+        }
+};
+
+mytilt *_tiltTree(Node *root){
+    if(root == NULL){
+        mytilt *tilt = new mytilt();
+        return tilt;
+    }
+    
+    mytilt *ltilt = _tiltTree(root->left);
+    mytilt *rtilt = _tiltTree(root->right);
+    
+    mytilt *ctilt = new mytilt();
+    ctilt->sum = ltilt->sum + rtilt->sum + root->val;
+    ctilt->tilt = ltilt->tilt + rtilt->tilt + abs(ltilt->sum - rtilt->sum);
+    
+    return ctilt;
+}
+
+int tiltTree(Node* root)
+{
+	// Code here
+	if(root == NULL)
+	    return 0;
+	    
+	mytilt *ans =  _tiltTree(root);
+	
+	return ans->tilt;
+}
