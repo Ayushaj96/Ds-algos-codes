@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+
+int power(int n, int p){
+    if(p == 0)
+        return 1;
+    
+    int xpnb2 = power(n,p/2);
+    int xn = xpnb2 * xpnb2;
+    
+    if(p % 2 == 1)
+        xn = n*xn;
+    
+    return xn;    
+}
+
+int main() {
+	// your code goes here
+	int n,p;
+	cin>>n>>p;
+	
+	cout<<power(n,p);
+	return 0;
+}
