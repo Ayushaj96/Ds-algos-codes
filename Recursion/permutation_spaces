@@ -1,0 +1,33 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+void printCombinations(string str, string ans)
+{
+    if(str.length() == 0)
+    {
+        cout<<"("<<ans<<")";
+        return;
+    }
+    
+    char ch = str[0];
+    printCombinations(str.substr(1),ans + " " + ch );
+    printCombinations(str.substr(1),ans + ch);
+    
+}
+
+int main() {
+	//code
+	int t;
+	cin>>t;
+	
+	while(t--)
+	{
+	    string str;
+	    cin>>str;
+	    
+	    printCombinations(str.substr(1),str.substr(0,1));
+	    cout<<endl;
+	}
+	return 0;
+}
