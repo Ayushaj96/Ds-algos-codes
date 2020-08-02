@@ -1,0 +1,35 @@
+// using extra space, without backtracking
+
+#include <iostream>
+#include <cstring>
+#include <algorithm>
+using namespace std;
+
+void printPermutations(string ques, string ans){
+    if(ques.length() == 0){
+        cout<<ans<<" ";
+        return;
+    }
+    
+    for(int i = 0; i < ques.length(); i++){
+        char ch = ques[i];
+        string lp = ques.substr(0,i);
+        string rp = ques.substr(i+1);
+        printPermutations(lp+rp, ans + ch);
+    }
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    string str;
+	    cin>>str;
+	    sort(str.begin(), str.end());
+	    printPermutations(str,"");
+	    cout<<endl;
+	}
+	return 0;
+}
