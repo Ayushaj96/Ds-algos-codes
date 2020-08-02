@@ -1,3 +1,39 @@
+//using string
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+string keypad[10] = { {""},{""},{"ABC"},{"DEF"},{"GHI"},{"JKL"},{"MNO"},{"PQRS"},{"TUV"},{"WXYZ"}};
+
+void printKeypadString(string in, string out)
+{
+	if(in.length() == 0)
+	{
+		cout<<out<<endl;
+		return;
+	}
+	
+	int digit = in[0] - '0';
+    string key = keypad[digit];
+	for( int k = 0; k < key.length(); k++)
+	{
+		char ch = key[k];
+		printKeypadString(in.substr(1), out + ch);
+	}
+}
+
+int main()
+{
+	string str;
+	cin>>str;
+	
+	printKeypadString(str,"");
+}
+
+//*********************************
+// using char array
+
 #include <iostream>
 using namespace std;
 
