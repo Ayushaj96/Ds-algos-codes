@@ -1,0 +1,86 @@
+// Get paths variation
+
+vector<string> _printPath(int m[MAX][MAX], int r, int c, int n, bool isVisited[MAX][MAX]){
+    vector<string> t;
+    if(r < 0 || c < 0 || r == n || c == n || m[r][c] == 0 || isVisited[r][c])
+        return t;
+        
+    if(r == n - 1 && c == n - 1){
+        t.push_back("");
+        return t;
+    }
+    
+    vector<string> up,down,left,right;
+    isVisited[r][c] = true;
+    up = _printPath(m,r-1,c,n,isVisited);
+    down = _printPath(m,r+1,c,n,isVisited);
+    left = _printPath(m,r,c-1,n,isVisited);
+    right = _printPath(m,r,c+1,n,isVisited);
+    
+    isVisited[r][c] = false;
+    vector<string> paths;
+    for(string path : up)
+        paths.push_back("U" + path);
+    for(string path : down)
+        paths.push_back("D" + path);
+    for(string path : left)
+        paths.push_back("L" + path);
+    for(string path : right)
+        paths.push_back("R" + path);
+        
+    return paths;   
+}
+
+// m is the given matrix and n is the order of matrix
+// MAX is the upper limit of N ie 5
+vector<string> printPath(int m[MAX][MAX], int n) {
+    // Your code goes here
+    bool isVisited[n][MAX];
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++)
+            isVisited[i][j] = false;
+    }
+    
+    vector<string> paths =  _printPath(m,0,0,n,isVisited);
+    sort(paths.begin(),paths.end());
+    
+    return paths;
+}
+
+
+
+
+// Print Paths Variation
+
+vvoid _printPath(int m[MAX][MAX], int r, int c, int n, string path,bool isVisited[MAX][MAX]){
+ 
+    if(r < 0 || c < 0 || r == n || c == n || m[r][c] == 0 || isVisited[r][c])
+        return ;
+        
+    if(r == n - 1 && c == n - 1){
+        cout<<path<<" ";
+        return;
+    }
+    
+    isVisited[r][c] = true;
+    up = _printPath(m,r-1,c,n,path + "U",isVisited);
+    down = _printPath(m,r+1,c,n,path + "D",isVisited);
+    left = _printPath(m,r,c-1,n,path + "L",isVisited);
+    right = _printPath(m,r,c+1,n,path + "R",isVisited);
+    
+    isVisited[r][c] = false;
+     
+}
+
+// m is the given matrix and n is the order of matrix
+// MAX is the upper limit of N ie 5
+  void printPath(int m[MAX][MAX], int n) {
+    // Your code goes here
+    bool isVisited[n][MAX];
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++)
+            isVisited[i][j] = false;
+    }
+    
+    _printPath(m,0,0,n,"",isVisited);
+}
