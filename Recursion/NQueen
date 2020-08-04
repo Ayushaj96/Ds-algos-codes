@@ -1,0 +1,65 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+bool isQueenSafe(vector<vector<int>> v, int row, int col){
+    int i,j;
+    for( i = row - 1, j = col; i >= 0; i--){
+        if(v[i][j] == 1)
+            return false;
+    }
+    
+    for( i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--){
+        if(v[i][j] == 1)
+            return false;
+    }
+    
+    for( i = row - 1, j = col + 1; i >= 0 && j < v.size(); i--, j++){
+        if(v[i][j] == 1)
+            return false;
+    }
+    return true;
+}
+
+void printNQueens(vector<vector<int>> v, string qsf, int row, int &flag){
+    if(row == v.size()){
+        cout<<"["<<qsf<<"] ";
+        flag = 1;
+        return;
+    }
+    
+    for(int col = 0; col < v.size(); col++){
+        if(isQueenSafe(v,row,col)){
+            v[row][col] = 1;
+            printNQueens(v,qsf + to_string(col + 1) + " ",row+1,flag);
+            v[row][col] = 0;
+        }
+    }
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int n;
+	    cin>>n;
+	    
+	    vector<vector<int>> vc;
+	    for(int i = 0; i < n; i++){
+	        vector<int> v;
+	        int num = 0;
+	        for(int j = 0; j < n; j++){
+	            v.push_back(num);
+	        }
+	        vc.push_back(v);
+	    }
+	    int flag = 0;
+	    printNQueens(vc,"",0,flag);
+	    if(flag == 0)
+	        cout<<-1;
+	    cout<<endl;
+	}
+	return 0;
+}
