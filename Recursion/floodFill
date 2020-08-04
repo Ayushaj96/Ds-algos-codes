@@ -1,0 +1,52 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void floodfill(vector<vector<int>> &v, int r, int c, int k, int pixel){
+    if(r < 0 || c < 0 || r >= v.size() || c >= v[0].size() || v[r][c] != pixel)
+        return;
+        
+    // if current has same val as target
+    if(v[r][c] == pixel)
+        v[r][c] = k; // new color
+        
+    floodfill(v,r-1,c,k,pixel);//top
+    floodfill(v,r+1,c,k,pixel); // bottom
+    floodfill(v,r,c+1,k,pixel); // right
+    floodfill(v,r,c-1,k,pixel); // left
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int r,c;
+	    cin>>r>>c;
+	    
+	    vector<vector<int>> vc;
+	    for(int i = 0; i < r; i++){
+	        vector<int> v;
+	        for(int j = 0; j < c; j++){
+	            int num;
+	            cin>>num;
+	            v.push_back(num);
+	        }
+	        vc.push_back(v);
+	    }
+	    
+
+	    int row,col,k;
+	    cin>>row>>col>>k;
+	    
+	    floodfill(vc,row,col,k,vc[row][col]);
+	    
+	    for(int i = 0; i < r; i++){
+	        for(int j = 0; j < c; j++)
+	            cout<<vc[i][j]<<" ";
+	    }
+	    cout<<endl;
+	}
+	return 0;
+}
