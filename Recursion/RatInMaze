@@ -1,8 +1,7 @@
 // Get paths variation
-
-vector<string> _printPath(int m[MAX][MAX], int r, int c, int n, bool isVisited[MAX][MAX]){
+vector<string> _printPath(int m[MAX][MAX], int r, int c, int n){
     vector<string> t;
-    if(r < 0 || c < 0 || r == n || c == n || m[r][c] == 0 || isVisited[r][c])
+    if(r < 0 || c < 0 || r == n || c == n || m[r][c] == 0)
         return t;
         
     if(r == n - 1 && c == n - 1){
@@ -11,13 +10,13 @@ vector<string> _printPath(int m[MAX][MAX], int r, int c, int n, bool isVisited[M
     }
     
     vector<string> up,down,left,right;
-    isVisited[r][c] = true;
-    up = _printPath(m,r-1,c,n,isVisited);
-    down = _printPath(m,r+1,c,n,isVisited);
-    left = _printPath(m,r,c-1,n,isVisited);
-    right = _printPath(m,r,c+1,n,isVisited);
+    m[r][c] = 0; // mark as visited
+    up = _printPath(m,r-1,c,n);
+    down = _printPath(m,r+1,c,n);
+    left = _printPath(m,r,c-1,n);
+    right = _printPath(m,r,c+1,n);
     
-    isVisited[r][c] = false;
+    m[r][c] = 1; // backtrack
     vector<string> paths;
     for(string path : up)
         paths.push_back("U" + path);
@@ -35,13 +34,8 @@ vector<string> _printPath(int m[MAX][MAX], int r, int c, int n, bool isVisited[M
 // MAX is the upper limit of N ie 5
 vector<string> printPath(int m[MAX][MAX], int n) {
     // Your code goes here
-    bool isVisited[n][MAX];
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < n; j++)
-            isVisited[i][j] = false;
-    }
     
-    vector<string> paths =  _printPath(m,0,0,n,isVisited);
+    vector<string> paths =  _printPath(m,0,0,n);
     sort(paths.begin(),paths.end());
     
     return paths;
