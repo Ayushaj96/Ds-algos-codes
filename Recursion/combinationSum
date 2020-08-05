@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void combinationSum(int *arr, int n, int idx, string ans, int sum, int target,set<string> &s){
+    if(sum > target)
+        return;
+    else if(sum == target){
+        if(s.find(ans) != s.end())
+            return;
+        s.insert(ans);    
+        cout<<"("<<ans<<")";
+        return;
+    }    
+    
+    for(int i = idx; i < n; i++){
+        if(ans.length() == 0){
+            combinationSum(arr,n,i,ans + to_string(arr[i]),sum + arr[i],target,s);
+        }
+        else{
+            combinationSum(arr,n,i,ans + " " + to_string(arr[i]),sum + arr[i],target,s);
+        }
+    }
+   
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int n;
+	    cin>>n;
+	    
+	    int arr[n];
+	    for(int i = 0; i < n; i++)
+	        cin>>arr[i];
+	    int k;
+	    cin>>k;
+	    
+	    sort(arr,arr+n);
+	    
+	    set<string> s;
+	    combinationSum(arr,n,0,"",0,k,s);
+	    if(s.empty())
+	        cout<<"Empty";
+	    cout<<endl;
+	}
+	return 0;
+}
