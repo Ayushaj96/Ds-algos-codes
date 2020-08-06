@@ -1,0 +1,47 @@
+void genIP(string s,string ans, unordered_set<string> &s1, int dots){
+    if(s.length() == 0){
+        if(dots < 3 || dots > 3)
+            return;
+        s1.insert(ans);
+        return;
+    }
+    
+    
+    //for(int i = 0; i < 3; i++){
+        if(ans.length() == 0){
+            genIP(s.substr(1), ans + s.substr(0,1),s1,dots);
+            if(s.length() > 1 && s[0] != '0')
+                genIP(s.substr(2), ans + s.substr(0,2),s1,dots);
+            if(s.length() > 2 && s[0] != '0'){
+                string sub = s.substr(0,3);
+                if(stoi(sub) < 256)
+                    genIP(s.substr(3), ans + s.substr(0,3),s1,dots);
+            }
+        }
+        else{
+             genIP(s.substr(1), ans +"."+s.substr(0,1),s1,dots+1);
+             if(s.length() > 1 && s[0] != '0')
+                genIP(s.substr(2), ans + "." +s.substr(0,2),s1,dots+1);
+            if(s.length() > 2 && s[0] != '0'){
+                string sub = s.substr(0,3);
+                if(stoi(sub) < 256)
+                    genIP(s.substr(3), ans + "." +s.substr(0,3),s1,dots+1);
+               
+            }    
+        }
+   // }
+}
+
+vector<string> genIp(string &s) {
+    // Your code here
+    vector<string> ip;
+    if(s.length() < 4)
+        return ip;
+    
+    unordered_set<string> s1;
+    genIP(s,"",s1,0);
+    for(auto it = s1.begin(); it != s1.end(); it++)
+        ip.push_back(*it);
+    
+    return ip;
+}
