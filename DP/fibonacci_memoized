@@ -1,0 +1,36 @@
+#include <iostream>
+using namespace std;
+
+int fibMemoized(int n, int *arr){
+    if(n == 0 || n == 1)
+        return n;
+    
+    if(arr[n] != 0)
+        return arr[n];
+    
+    int fib1 = fibMemoized(n-1, arr);
+    int fib2 = fibMemoized(n-2, arr);
+    int fibn = (fib1 + fib2) % 1000000007;
+    
+    arr[n] = fibn;
+    return fibn;
+}
+
+int main() {
+	//code
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	    int n;
+	    cin>>n;
+	    
+	    int *arr = new int[n+1];
+	    for(int i = 0; i <=n; i++)
+	        arr[i] = 0;
+	    cout<<fibMemoized(n,arr)<<endl;
+	    
+	    delete arr;
+	}
+	return 0;
+}
