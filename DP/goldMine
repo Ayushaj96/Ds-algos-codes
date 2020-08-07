@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int goldmine(vector<vector<int>> v){
+    
+    int n = v.size();
+    int m = v[0].size();
+    int dp[n][m];
+    
+    int val;
+    for(int j = m - 1; j >= 0; j--){
+        for(int i = n - 1; i >= 0; i--){
+            if(j == m - 1) // last column
+                dp[i][j] = v[i][j];
+            else if(i == 0){ // first row
+                val = (n > 1) ? max(dp[i][j+1],dp[i+1][j+1]) : dp[i][j+1];
+                dp[i][j] = v[i][j] + val;
+            }
+            else if(i == n - 1){ // last row
+                val = (n > 1) ? max(dp[i][j+1],dp[i-1][j+1]) : dp[i][j+1];
+                dp[i][j] = v[i][j] + val;
+            }
+            else{
+                dp[i][j] = v[i][j] + max(dp[i][j+1],max(dp[i+1][j+1],dp[i-1][j+1]));
+            }   
+        }
+    }
+    
+    int maxGold = INT_MIN;
+    for(int i = 0; i < n; i++)
+        maxGold = max(dp[i][0],maxGold);
+    
+    return maxGold;    
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int n,m;
+	    cin>>n>>m;
+	    
+	    vector<vector<int>> grid;
+	    vector<int> v;
+	    for(int i = 0; i < n; i++){
+	        for(int j = 0; j < m; j++){
+	            int num;
+	            cin>>num;
+	            v.push_back(num);
+	        }
+	        grid.push_back(v);
+	        v.clear();
+	    }
+	    
+	    cout<<goldmine(grid)<<endl;
+	}
+	return 0;
+}
