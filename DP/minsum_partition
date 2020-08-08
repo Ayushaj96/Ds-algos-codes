@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+//recursive solution  
+int minSumPartition(int *arr, int n, int idx, int sum){
+    if(idx == n || sum == 0)
+        return 0;
+    
+    int val1 = 0;
+    if(arr[idx] <= sum)
+        val1 = arr[idx] + minSumPartition(arr,n,idx+1,sum - arr[idx]);
+    
+    int val2 = minSumPartition(arr,n,idx+1,sum);
+    return max(val1,val2);
+} 
+
+int _minSumPartition(int *arr, int n, int sum){
+    int dp[n+1][sum+1];
+    
+    for(int i = 0; i <= sum; i++)
+        dp[0][i] = 0;
+    for(int j = 0; j <= n; j++)
+        dp[j][0] = 0;
+        
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= sum; j++){
+            if(arr[i-1] <= j)
+                dp[i][j] = max(arr[i-1] + dp[i-1][j - arr[i-1]], dp[i-1][j]);
+            else
+                dp[i][j] = dp[i-1][j];
+        }
+    }    
+    
+    return dp[n][sum] ;  
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int n;
+	    cin>>n;
+	    
+	    int arr[n];
+	    for(int i = 0; i < n; i++)
+	        cin>>arr[i];
+	    int sum = 0;
+	    for(int i = 0; i < n; i++)
+	        sum += arr[i];
+	    int par1 = _minSumPartition(arr,n,sum/2); 
+	    int par2 = sum - par1;
+	    
+	    cout<<abs(par1 - par2)<<endl;
+	}
+	return 0;
+}
