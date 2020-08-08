@@ -8,28 +8,27 @@ int knapSackRecursive(int *val, int *wt, int W, int n){
     if(n == 0 || W == 0)
         return 0;
     int val1 = 0;    
-    if(wt[n] <= W){
+    if(wt[n] <= W)
         int val1 = val[n] + knapSackRecursive(val,wt,W - wt[n], n - 1);
     int val2 = knapSackRecursive(val,wt,W,n-1);
     return max(val1,val2);
 }
 
 int knapSackMemoised(int *val, int *wt, int W, int n){
-    if(n == 0 || W <= 0)
+    if(n < 0 || W <= 0)
         return 0;
         
     if(dp[n][W] != -1)
         return dp[n][W];
         
-    if(wt[n-1] <= W){
-        int val1 = knapSackMemoised(val,wt,W - wt[n-1], n - 1);
-        int val2 = knapSackMemoised(val,wt,W,n-1);
-        int res = max(val[n-1] + val1, val2);
-        dp[n][W] = res;
-        return res;
-    }    
-    else
-        return dp[n][W] = knapSackMemoised(val,wt,W,n-1);
+    int val1 = 0;		
+    if(wt[n] <= W)
+        val1 = val[n] + knapSackMemoised(val,wt,W - wt[n], n - 1);
+        
+    int val2 = knapSackMemoised(val,wt,W,n-1);
+	dp[n][W] = max(val1,val2);
+	
+	return dp[n][W];
 }
 
 int main() {
@@ -48,7 +47,7 @@ int main() {
 	        cin>>wt[i];
 	   
 	    memset(dp,-1,sizeof(dp));
-	    cout<<knapSackMemoised(val,wt,W,n)<<endl;     
+	    cout<<knapSackMemoised(val,wt,W,n-1)<<endl;     
 	}
 	return 0;
 }
