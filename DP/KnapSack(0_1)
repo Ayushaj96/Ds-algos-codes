@@ -7,15 +7,11 @@ static int dp[1001][1001];
 int knapSackRecursive(int *val, int *wt, int W, int n){
     if(n == 0 || W == 0)
         return 0;
-        
+    int val1 = 0;    
     if(wt[n] <= W){
-        int val1 = knapSackRecursive(val,wt,W - wt[n], n - 1);
-        int val2 = knapSackRecursive(val,wt,W,n-1);
-        
-        return max(val[n] + val1, val2);
-    }    
-    else
-        return knapSackRecursive(val,wt,W,n-1);
+        int val1 = val[n] + knapSackRecursive(val,wt,W - wt[n], n - 1);
+    int val2 = knapSackRecursive(val,wt,W,n-1);
+    return max(val1,val2);
 }
 
 int knapSackMemoised(int *val, int *wt, int W, int n){
