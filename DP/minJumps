@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+ll minJumps(ll *arr, ll n){
+    
+    if(n == 0 || arr[0] == 0)
+        return -1;
+    
+    ll dp[n];
+    for(ll i = 0; i < n; i++)
+        dp[i] = -1;
+    dp[n-1] = 0;
+    for(int i = n-2; i >= 0; i--){
+        if(arr[i] > 0){
+            ll minval = LONG_MAX;
+            for(ll j = 1; j <= arr[i]; j++){ // check for each jump possible
+                if(i + j < n && dp[i+j] != -1)
+                    minval = min(minval,dp[i+j]);
+            }      
+        if(minval != LONG_MAX)
+            dp[i] = minval + 1;
+        else 
+            dp[i] = LONG_MAX;
+        }
+       
+    }
+   
+    return dp[0] == LONG_MAX ? -1 : dp[0];
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    ll n;
+	    cin>>n;
+	    
+	    ll arr[n];
+	    for(ll i = 0; i < n; i++)
+	        cin>>arr[i];
+	   
+	    cout<<minJumps(arr,n)<<endl;     
+	}
+	return 0;
+}
