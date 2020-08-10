@@ -1,0 +1,56 @@
+#include <iostream>
+#include <vector>
+#include <climits>
+using namespace std;
+
+int minCoinsRecursive(int *arr, int n, int idx, int K,  vector<vector<int>> &dp){
+    if(K < 0)
+        return INT_MAX;
+    if(K == 0)
+        return 0;
+    if(idx == n){
+        if(K == 0)
+            return 0;
+        return INT_MAX;    
+    }    
+    
+    if(dp[idx][K] != -1)
+        return dp[idx][K];
+    
+    int val1 = INT_MAX;
+    if(arr[idx] <= K){
+        val1 = minCoinsRecursive(arr,n,idx,K-arr[idx],dp);
+        if(val1 != INT_MAX)
+            val1++;
+    }
+    
+    int val2 =  minCoinsRecursive(arr,n,idx+1,K,dp);
+    dp[idx][K] = min(val1,val2);
+    
+    return dp[idx][K];
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int K,n;
+	    cin>>K>>n;
+	    
+	    int arr[n];
+	    for(int i = 0; i < n; i++)
+	        cin>>arr[i];
+	      
+	    vector<vector<int>> v(n+1,vector<int> (K+1,-1));   
+	    int coins = minCoinsRecursive(arr,n,0,K,v);
+	    if(coins == INT_MAX)
+	        cout<<-1;
+	    else
+	        cout<<coins;
+	    cout<<endl;     
+	        
+	}
+	return 0;
+}
