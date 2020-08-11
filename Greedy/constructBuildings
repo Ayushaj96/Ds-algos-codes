@@ -32,3 +32,40 @@ int main() {
 }
 
 
+//iterative
+
+#include <iostream>
+using namespace std;
+#define ll long int
+#define mod 1000000007
+
+ll buildingsArrangement(ll n){
+    
+    ll ob = 1, os = 1;
+    ll nb = 0, ns = 0;
+    for(ll i = 2; i <= n; i++){
+        nb = os;
+        ns = (ob%mod + os%mod)%mod;
+        ob = nb;
+        os = ns;
+    }
+    
+    ll total = ob+os;
+    
+    return (total%mod * total%mod)%mod;
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    ll n;
+	    cin>>n;
+	    
+	    cout<<buildingsArrangement(n)<<endl;
+	}
+	return 0;
+}
+
