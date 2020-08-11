@@ -42,11 +42,9 @@ int coinChangeMemoised(int *arr, int n, int i, int K,vector<vector<int>> &dp){
         return 0;
     if(K == 0)
     	return 1;
-    if(i == n){
-        if(K == 0)
-            return 1;
+    if(i == n && K != 0)
         return 0;    
-    }    
+    
     if(dp[i][K] != -1)
         return dp[i][K];
     int val1 = 0;
