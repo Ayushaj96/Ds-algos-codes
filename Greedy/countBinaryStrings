@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int n;
+	    cin>>n;
+	    
+	    int prev0 = 1, prev1 = 1;
+	    int cur0 = 0,cur1 = 0;
+	    
+	    for(int i = 2; i <= n; i++){
+	        cur0 = prev0 + prev1;
+	        cur1 = prev0;
+	        prev0 = cur0;
+	        prev1 = cur1;
+	    }
+	    
+	    cout<<prev0 + prev1<<endl;
+	}
+	return 0;
+}
