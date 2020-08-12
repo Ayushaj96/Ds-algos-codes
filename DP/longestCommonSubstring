@@ -1,0 +1,39 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+int LongestCommonSubString(string str1, string str2){
+    int n,m;
+    n = str1.length();
+    m = str2.length();
+    
+    int dp[n+1][m+1];
+    memset(dp,0,sizeof(dp));
+    int len = 0;
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= m; j++){
+            if(str1[i-1] == str2[j-1]){ // char equal
+                dp[i][j] = 1 + dp[i-1][j-1];
+                len = max(len,dp[i][j]); // max from dp 2d array
+            }
+        }
+    }
+    return len;
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int n,m;
+	    cin>>n>>m;
+	    
+	    string str1,str2;
+	    cin>>str1>>str2;
+	    cout<<LongestCommonSubString(str1,str2)<<endl;
+	}
+	
+	return 0;
+}
