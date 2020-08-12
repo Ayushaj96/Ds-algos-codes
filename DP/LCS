@@ -25,6 +25,24 @@ int LCS(string str1, string str2, int n, int m, vector<vector<int>> &dp){
     
 }
 
+int LCStabulation(string str1, string str2){
+    int n = str1.length();
+    int m = str2.length();
+    
+    int dp[n+1][m+1];
+    memset(dp,0,sizeof(dp));
+    
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= m; j++){
+            if(str1[i-1] == str2[j-1])
+                dp[i][j] = 1 + dp[i-1][j-1];
+            else
+                dp[i][j] = max(dp[i-1][j],dp[i][j-1]);
+        }
+    }
+    return dp[n][m];
+}
+
 int main() {
 	//code
 	int T;
@@ -38,7 +56,8 @@ int main() {
 	    cin>>str1>>str2;
 	    
 	    vector<vector<int>> dp(n+1, vector<int> (m+1,-1));
-	    cout<<LCS(str1,str2,0,0,dp)<<endl;
+	    //cout<<LCS(str1,str2,0,0,dp)<<endl;
+	    cout<<LCStabulation(str1,str2)<<endl;
 	}
 	return 0;
 }
