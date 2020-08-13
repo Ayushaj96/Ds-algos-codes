@@ -35,15 +35,8 @@ int main() {
 	    cin>>str1>>str2;
 	    
 	    int lcs = LCS(str1,str2);
-	    int count = 0, diff = 0;
-	    if(n < m){ // insert into str1
-	        diff = m - n;
-	        count = diff + (n - lcs)*2;
-	    }
-	    else{ // delete from str1
-	         diff = n - m;
-	         count = diff + (n-diff-lcs)*2;
-	    }
+	    int count = m + n - 2*lcs;
+	   
 	    cout<<count<<endl;
 	}
 	return 0;
