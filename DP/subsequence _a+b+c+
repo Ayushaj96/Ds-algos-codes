@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int t;
+    cin>>t;
+    
+    while(t--){
+        string str;
+        cin>>str;
+        int a=0,ab=0,abc=0;//count of subsequenes ending with a,b,c
+        
+        for(int i=0; i<str.length(); i++){
+            if(str[i]=='a'){
+                a = 2*a+1;//new count=previous count+
+                // we can append 'a' to all previous strings ending with 'a'+
+                //we can start new subsequence starting with 'a'
+            }
+            else if(str[i]=='b'){
+                ab = 2*ab + a;//2*b comes same as 2*a came in previous case
+                //+ we can append 'b' to all strings ending with 'a'
+            }
+            else if(str[i]=='c'){
+                abc = 2*abc + ab;//same as in previous case
+            }
+        }
+        cout<<abc<<endl;//count of all strings ending with c
+    }
+    return 0;
+}
+
+/*
+
+*/
