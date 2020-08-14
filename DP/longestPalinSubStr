@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string longestPalindromicSubstr(string str){
+    int n = str.length();
+        if(n == 0)
+            return "";
+        if(n == 1)
+            return str;
+        int dp[n][n];
+        memset(dp,0,sizeof(dp));
+
+        for(int i = 1; i < n; i++)
+            dp[i][i] = 1;
+
+        int len = 1, start = 0; // start = 0// first index is palindrome so len = 1. to handle edge cases
+        for(int col = 1; col < n; col ++){
+            for(int row = 0; row < col; row++){
+                if(row == col-1 && str[row] == str[col]){
+                    dp[row][col] = 1;
+                    int temp =  col - row + 1;
+                    if(len < temp){
+                        len = temp;
+                        start = row;
+                    }
+                }
+                else if(dp[row+1][col-1] == 1 && str[row] == str[col]){
+                    dp[row][col] = 1;
+                    int temp =  col - row + 1;
+                    if(len < temp){
+                        len = temp;
+                        start = row;
+                    }
+                }
+            }
+        }
+     
+        return str.substr(start, len);
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    string str;
+	    cin>>str;
+	    
+	    cout<<longestPalindromicSubstr(str)<<endl;
+	}
+	return 0;
+}
