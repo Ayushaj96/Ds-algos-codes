@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void printEncodings(string str, string ans){
+    if(str.length() == 0){
+        cout<<ans<<endl;
+        return;
+    }
+    if(str.length() == 1){
+        char ch = str[0];
+        if(ch == '0') // check for 0
+            return;
+        else{
+            int code = ch - '0';
+            char alph = code + 'a' - 1;
+            printEncodings(str.substr(1), ans + alph);
+        }
+    }
+    else{
+        char ch = str[0];
+        if(ch == '0')
+            return;
+        int code = ch - '0';
+        char alph = code + 'a' - 1;  
+        printEncodings(str.substr(1),ans + alph); // call with 1 char
+        
+        string code1 = str.substr(0,2);
+        int num = stoi(code1);
+        if(num <= 26){
+            char code = num + 'a' - 1;
+            printEncodings(str.substr(2),ans+code); // call with 2 chars
+        }
+    }
+}
+
+int main() {
+	// your code goes here
+	string str;
+	cin>>str;
+	
+	printEncodings(str,"");
+	return 0;
+}
