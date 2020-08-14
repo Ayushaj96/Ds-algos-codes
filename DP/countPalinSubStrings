@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int palindromicSubStrings(string str){
+    int n = str.length();
+    int dp[n][n];
+    memset(dp,0,sizeof(dp));
+    
+    for(int i = 0; i < n; i++)
+        dp[i][i] = 1;
+        
+    int count = 0;    
+    for(int col = 1; col < n; col++){
+        for(int row = 0; row < col; row++){
+            if(row == col - 1 && str[row] == str[col]){ // string length 2
+                dp[row][col] = 1;
+                count++;
+            }
+            else if(dp[row+1][col-1] == 1 && str[row] == str[col]){ // string length >2
+                dp[row][col] = 1;
+                count++;
+            }
+        } 
+    }  
+    return count;
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int n;
+	    cin>>n;
+	    
+	    string str;
+	    cin>>str;
+	    
+	    cout<<palindromicSubStrings(str)<<endl;
+	}
+	return 0;
+}
