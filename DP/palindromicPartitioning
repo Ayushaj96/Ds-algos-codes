@@ -1,0 +1,52 @@
+
+bool isPalindrome(string str, int i, int j){
+    
+    while(i < j){
+        if(str[i] != str[j])
+            return false;
+        i++;
+        j--;
+    }
+    
+    return true;
+}
+
+int palindromicPartitioning(string str, int i, int j, vector<vector<int>> &dp){
+    if(i >= j)
+        return 0;
+        
+    if(dp[i][j] != -1)
+        return dp[i][j];
+        
+    if(isPalindrome(str,i,j))
+        return 0;
+   
+    
+    int val = INT_MAX;
+    for(int k = i; k < j; k++){
+        int val1 = 0, val2 = 0;
+        if(dp[i][k] != -1)
+            val1 = dp[i][k];
+        else
+            val1 = palindromicPartitioning(str,i,k,dp);
+            
+        if(dp[k+1][j] != -1)
+            val2 = dp[k+1][j];
+        else
+            val2 = palindromicPartitioning(str,k+1,j,dp);
+            
+        int temp = 1 + val1 + val2;
+        val = min(val,temp);
+    }
+    
+    dp[i][j] = val;
+    return dp[i][j];
+}
+
+int Solution::minCut(string A) {
+    if(A.length() == 0)
+        return 0;
+    int n = A.length();    
+     vector<vector<int>> dp(n,vector<int>(n,-1));
+    return  palindromicPartitioning(A,0,n-1,dp);
+}
