@@ -1,0 +1,40 @@
+#include <iostream>
+#include <vector>
+#include <climits>
+using namespace std;
+
+int eggDropping(int eggs, int floors, vector<vector<int>> &dp){
+    if(floors ==0 || floors==1)
+        return floors;
+    if(eggs == 1 || eggs == 0)
+        return floors;
+    
+    if(dp[eggs][floors] != -1)
+        return dp[eggs][floors];
+    
+    int minv = INT_MAX;    
+    for(int k = 1; k <= floors; k++){
+        // max is taken for worst case scenario asked
+        int temp = 1 + max(eggDropping(eggs-1,k-1,dp), eggDropping(eggs,floors-k,dp));
+        minv = min(minv,temp);
+    }    
+    
+    dp[eggs][floors] = minv;
+    
+    return dp[eggs][floors];
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int eggs, floors;
+	    cin>>eggs>>floors;
+	    
+	    vector<vector<int>> dp(eggs+1,vector<int>(floors+1,-1));
+	    cout<<eggDropping(eggs,floors,dp)<<endl;
+	}
+	return 0;
+}
