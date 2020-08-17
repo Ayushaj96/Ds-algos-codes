@@ -1,0 +1,106 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void booleanMatrix(vector<vector<int>> &v){
+    int n = v.size();
+    int m = v[0].size();
+    
+    int row[n], col[m];
+    memset(row,0,sizeof(row));
+    memset(col,0,sizeof(col));
+    
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            if(v[i][j]){
+                row[i] = 1;
+                col[j] = 1;
+                break;
+            }
+        }
+    }
+    
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            if(row[i] || col[j]){
+                v[i][j] = 1;
+            }
+        }
+    }
+}
+
+// space optimised
+void _booleanMatrix(vector<vector<int>> &v){
+    int n = v.size();
+    int m = v[0].size();
+    
+    bool row_flag = false, col_flag = false;
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            if(i == 0 && v[i][j] == 1)
+                row_flag = true;
+            
+            if(j == 0 && v[i][j] == 1)
+                col_flag = true;
+            
+            else if(v[i][j] == 1){
+                v[0][j] = 1;
+                v[i][0] = 1;
+            }    
+        }
+    }
+    
+    for(int i = 1; i < n; i++){
+        for(int j = 1; j < m; j++){
+            if(v[0][j] || v[i][0]){
+                v[i][j] = 1;
+            }
+        }
+    }
+    
+     if (row_flag == true) { 
+        for (int i = 0; i < m; i++) { 
+            v[0][i] = 1; 
+        } 
+    } 
+  
+    // modify first col if there was any 1 
+    if (col_flag == true) { 
+        for (int i = 0; i < n; i++) { 
+            v[i][0] = 1; 
+        } 
+    } 
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int n, m;
+	    cin>>n>>m;
+	    
+	    vector<vector<int>> v;
+	    vector<int> temp;
+	    temp.reserve(m);
+	    for(int i = 0; i < n; i++){
+	        for(int j = 0; j < m; j++){
+	            int num;
+	            cin>>num;
+	            temp.push_back(num);
+	        }
+	        v.push_back(temp);
+	        temp.clear();
+	    }
+	    
+	    _booleanMatrix(v);
+	    
+	    for(int i = 0; i < n; i++){
+	        for(int j = 0; j < m; j++){
+	          cout<<v[i][j]<<" ";
+	        }
+	        cout<<endl;
+	    }
+	}
+	return 0;
+}
