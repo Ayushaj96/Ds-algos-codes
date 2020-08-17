@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+int p,q,r;
+int maxCut(int n, vector<int> &dp){
+    
+    if(n == 0)
+        return 0;
+    if(n < 0)
+        return INT_MIN;
+    
+    if(dp[n] != -1)
+        return dp[n];
+        
+    
+    int ans = INT_MIN;
+    ans = max(ans,1 + maxCut(n-p,dp));
+    ans = max(ans,1 + maxCut(n-q,dp));
+    ans = max(ans,1 + maxCut(n-r,dp));
+    
+    dp[n] = ans;
+    return dp[n];
+    return ans;
+    
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int n;
+	    cin>>n;
+	   
+	    cin>>p>>q>>r;
+	    vector<int> dp(n+1,-1);
+	 
+	    cout<<maxCut(n,dp)<<endl;
+	}
+	return 0;
+}
