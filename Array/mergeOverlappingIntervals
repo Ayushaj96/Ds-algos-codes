@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int n;
+	    cin>>n;
+	    
+	    vector<pair<int,int>> v;
+	    for(int i = 0; i < n; i++){
+	        int n1,n2;
+	        cin>>n1>>n2;
+	        
+	        v.push_back({n1,n2}); 
+	    }
+	    
+	    sort(v.begin(),v.end());
+	    stack<pair<int,int>> s;
+	    
+	    pair<int,int> p;
+	    for(int i = 0; i < n; i++){
+	        if(s.empty())
+	            s.push(v[i]);
+	        else{
+	            p = s.top();
+	            if(v[i].first <= p.second && v[i].second > p.second){
+	                s.pop();
+	                s.push({p.first,v[i].second});
+	            }
+	            else if(v[i].first > p.second)
+	                s.push(v[i]);
+	        }     
+	    }
+	    v.clear();
+	    while(!s.empty()){
+	        v.push_back(s.top());
+	        s.pop();
+	    }
+	    
+	    for(int i = v.size() - 1; i >= 0; i--)
+	        cout<<v[i].first<<" "<<v[i].second<<" ";
+	    cout<<endl;     
+	}
+	return 0;
+}
