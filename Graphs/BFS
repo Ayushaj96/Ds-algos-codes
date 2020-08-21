@@ -1,0 +1,24 @@
+vector <int> bfs(vector<int> g[], int N) {
+
+    // Your code here
+    vector<int> trav;
+    queue<int> q;
+    vector<bool> visited(N,false);
+    
+    q.push(0);
+    visited.push_back(true);
+    
+    while(!q.empty()){
+        int node = q.front();
+        trav.push_back(node);
+        q.pop();
+        
+        for(auto it : g[node]){
+            if(!visited[it]){
+                q.push(it);
+                visited[it] = true;
+            }
+        }
+    }
+    return trav;
+}
