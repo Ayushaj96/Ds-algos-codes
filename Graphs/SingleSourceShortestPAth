@@ -28,11 +28,10 @@ class Graph{
          }
 
          q.push(src);
-         dist[src] = 0;
+         dist[src] = 0; // source
 
          while(!q.empty()){
              T node = q.front();
-             cout<<node<<" ";
              q.pop();
 
              //for the neighbours of current node, find out which are nor visited
