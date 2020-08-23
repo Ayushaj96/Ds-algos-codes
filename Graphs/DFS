@@ -1,3 +1,30 @@
+/** vector
+
+void dfsHelper(int src, vector<int> g[],unordered_map<int,int> &visited, vector<int> &arr){
+    arr.push_back(src);
+    visited[src] = 1;
+    
+    for(int i = 0; i < g[src].size(); i++){
+        int neighbor = g[src][i];
+        if(!visited[neighbor])
+            dfsHelper(neighbor,g,visited,arr);
+    }
+}
+vector <int> dfs(vector<int> g[], int N)
+{
+    
+    // Your code here
+    vector<int> arr;
+    unordered_map<int,int> visited;
+    dfsHelper(0,g,visited,arr);
+    
+    return arr;
+
+}
+
+
+/*************
+
 #include <iostream>
 #include <map>
 #include <list>
