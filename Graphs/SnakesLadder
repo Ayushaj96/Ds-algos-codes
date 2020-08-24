@@ -40,7 +40,7 @@ int main() {
 	    for(int i = 0; i < n; i++){
 	        int x,y;
 	        cin>>x>>y;
-	        board[x] = x > y ? -(x-y) : y-x;
+	        board[x] = y - x;
 	    }
 	    vector<int> gp[31];
 	    for(int u = 1; u <= 30; u++){
