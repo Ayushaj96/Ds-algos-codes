@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int bfs(int src, int dest, vector<int> gp[]){
+    queue<int> q;
+    unordered_map<int,int> dist;
+    
+    for(int i = 1; i <= 30; i++)
+        dist[i] = INT_MAX;
+    
+    q.push(src);
+    dist[src] = 0;
+    
+    while(!q.empty()){
+        int node = q.front();
+        q.pop();
+        
+        for(int i = 0; i < gp[node].size(); i++){
+            int neighbor = gp[node][i];
+            if(dist[neighbor] == INT_MAX){
+                q.push(neighbor);
+                dist[neighbor] = dist[node] + 1; // update distance
+            }
+        }
+    }
+    return dist[dest];
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int n;
+	    cin>>n;
+	    
+	    int board[31];
+	    memset(board,0,sizeof(board));
+	    for(int i = 0; i < n; i++){
+	        int x,y;
+	        cin>>x>>y;
+	        board[x] = x > y ? -(x-y) : y-x;
+	    }
+	    vector<int> gp[31];
+	    for(int u = 1; u <= 30; u++){
+	        for(int dice = 1; dice <= 6; dice++){
+	            int v = u + dice;
+	            if(v <= 30){
+	                v += board[v];
+	                gp[u].push_back(v);
+	            }
+	        }
+	    }
+	    cout<<bfs(1,30,gp)<<endl;
+	}
+	return 0;
+}
