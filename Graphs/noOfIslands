@@ -1,0 +1,38 @@
+class Solution {
+public:
+    
+    void dfs(int src, int dest, vector<vector<char>> &grid){
+        if(src < 0 || dest < 0 || src >= grid.size() || dest >= grid[0].size() || grid[src][dest] == '0'){
+            return;
+        }
+        
+        grid[src][dest] = '0';
+        dfs(src-1,dest,grid);
+        dfs(src,dest-1,grid);
+        dfs(src,dest+1,grid);
+        dfs(src+1,dest,grid);
+        
+    }
+    
+    int numIslands(vector<vector<char>>& grid) {
+        
+        int n = grid.size();
+        if(n == 0)
+            return 0;
+        
+        int m = grid[0].size();
+        vector<vector<int>> visited(n,vector<int>(m,0));
+        
+        int count = 0;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                if(grid[i][j] == '1'){
+                    count++;
+                    dfs(i,j,grid);
+                }
+            }
+        }
+        
+        return count;
+    }
+};
