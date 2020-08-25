@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(vector<int> gp[], int src, vector<bool> &visited){
+    visited[src] = true;
+    
+    for(int i = 0; i < gp[src].size(); i++){
+        int neighbor = gp[src][i];
+        if(!visited[neighbor])
+            dfs(gp,neighbor,visited);
+    }
+}
+
+int main(){
+    
+    int v,e;
+    cin>>v>>e;
+    
+    vector<int> gp[v];
+    for(int i = 0; i < e; i++){
+        int x,y,z;
+        cin>>x>>y>>z;
+        gp[x].push_back(y);
+    }
+    
+    vector<bool> visited(v,false);
+    int count = 0;
+    for(int i = 0; i < v; i++){
+        if(!visited[i]){
+            dfs(gp,i,visited);
+            count++;
+        }
+    }
+    
+    if(count == 1)
+        cout<<"true";
+    else
+        cout<<"false";
+    cout<<endl;    
+}
