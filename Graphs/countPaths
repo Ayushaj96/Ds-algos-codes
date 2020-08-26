@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int countPaths(int s, int d, vector<int> gp[], vector<int> &visited){
+    if(s == d)
+        return 1;
+    visited[s] = 1;
+    int count = 0;
+    for(int i = 0; i < gp[s].size(); i++){
+        int neighbor = gp[s][i];
+        if(visited[neighbor] == 0)
+            count += countPaths(neighbor,d,gp,visited);
+    }
+    visited[s] = 0;
+    return count;
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int v,e;
+	    cin>>v>>e;
+	    
+	    vector<int> gp[v];
+	    for(int i = 0; i < e; i++){
+	        int x,y;
+	        cin>>x>>y;
+	        gp[x].push_back(y);
+	    }
+	    
+	    int s,d;
+	    cin>>s>>d;
+	    
+	    vector<int> visited(v,0);
+	    cout<<countPaths(s,d,gp,visited)<<endl;
+	}
+	return 0;
+}
