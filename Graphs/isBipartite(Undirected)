@@ -1,0 +1,42 @@
+class Solution {
+public:
+    
+    bool checkBipartite(vector<vector<int>> G, int i, vector<int> &visited){
+        queue<pair<int,int>> q;
+        q.push({i,0});
+        pair<int,int> p;
+
+        while(!q.empty()){
+            p = q.front();
+            q.pop();
+            if(visited[p.first] != -1 && visited[p.first] != p.second)
+                return false;
+            else
+                visited[p.first] = p.second;
+
+            for(int j = 0; j < G[p.first].size(); j++) {
+                int neighbor = G[p.first][j];
+                if(visited[neighbor] == -1)
+                    q.push({neighbor,p.second+1});
+            }   
+        }
+        return true;
+}
+
+    
+    bool isBipartite(vector<vector<int>>& graph) {
+        int V = graph.size();
+        vector<int> visited(V,-1);
+        
+        bool isbipartite = true;
+        
+        for(int i = 0; i < V; i++){
+            if(visited[i] == -1)
+                isbipartite = checkBipartite(graph,i,visited);
+            if(!isbipartite)
+                return false;
+            
+        }
+     return true;
+    }
+};
