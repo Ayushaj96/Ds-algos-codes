@@ -1,0 +1,36 @@
+bool checkCycle(vector<int> g[], int V, vector<int> &visited){
+   
+   queue<int> q;
+   q.push(V);
+
+   while(!q.empty()){
+       int node = q.front();
+       q.pop();
+       if(visited[node])
+            return true;
+        visited[node] = 1;    
+       for(int i = 0; i < g[node].size(); i++){
+           int neighbor = g[node][i];
+           if(!visited[neighbor]){
+                q.push(neighbor);
+            }
+       }
+   }
+   return false;
+}
+
+bool isCyclic(vector<int> g[], int V)
+{
+   // Your code here
+    vector<int> visited(V,0);
+    bool hasCycle = false;
+   for(int i = 0; i < V; i++){
+        if(!visited[i])
+            hasCycle = checkCycle(g,i,visited);
+        if(hasCycle)
+            break;
+   }
+   
+   return hasCycle;
+  
+}
