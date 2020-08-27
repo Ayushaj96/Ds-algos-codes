@@ -1,0 +1,35 @@
+class myCompare{
+    public:
+    
+    bool operator()(pair<int,int> a, pair<int,int> b){
+        return a.second > b.second;
+    }
+};
+
+vector<int> dijkstra(vector<vector<int>> g, int src, int V){
+    // Your code here
+    vector<int> distance(V,INT_MAX);
+    priority_queue<int,vector<pair<int,int>>, myCompare> pq;
+    vector<bool> visited(V,false);
+    
+    pq.push({src,0});
+    pair<int,int> p;
+    while(!pq.empty()){
+        p = pq.top();
+        pq.pop();
+        
+        if(visited[p.first])
+            continue;
+        else
+            visited[p.first] = true;
+        distance[p.first] = min(distance[p.first],p.second);
+        
+        for(int i = 0; i < g[p.first].size(); i++){
+            int neighbor = i;
+            if(g[p.first][neighbor] > 0 && !visited[neighbor])
+                pq.push({neighbor,p.second + g[p.first][i]});
+        }
+    }
+ 
+    return distance;
+}
