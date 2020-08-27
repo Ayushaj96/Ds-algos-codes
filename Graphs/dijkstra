@@ -9,7 +9,7 @@ class myCompare{
 vector<int> dijkstra(vector<vector<int>> g, int src, int V){
     // Your code here
     vector<int> distance(V,INT_MAX);
-    priority_queue<int,vector<pair<int,int>>, myCompare> pq;
+    priority_queue<pair<int,int>,vector<pair<int,int>>, myCompare> pq;
     vector<bool> visited(V,false);
     
     pq.push({src,0});
