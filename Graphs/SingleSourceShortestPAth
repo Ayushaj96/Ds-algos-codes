@@ -34,7 +34,7 @@ class Graph{
              T node = q.front();
              q.pop();
 
-             //for the neighbours of current node, find out which are nor visited
+             //for the neighbours of current node, find out which are not visited
              for(int neighbour : adjList[node]){
                  if(dist[neighbour]==INT_MAX){
                      q.push(neighbour);
