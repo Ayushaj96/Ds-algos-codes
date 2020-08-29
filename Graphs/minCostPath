@@ -1,0 +1,72 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define pi pair<int,int>
+
+ll dx[]={-1,0,1,0};
+ll dy[]={0,1,0,-1};
+
+ll minCostPath(vector<vector<ll>> g){
+    
+    ll n = g.size();
+    vector<vector<ll>> visited(n,vector<ll>(n,0));
+    vector<vector<ll>> dist(n,vector<ll>(n,0));
+    
+    priority_queue<pair<ll,pi>,vector<pair<ll,pi>>,greater<pair<ll,pi>>> pq;
+    pq.push({g[0][0],{0,0}});
+    
+    pair<ll,pi> p;
+    while(!pq.empty()){
+        p = pq.top();
+        pq.pop();
+       
+        ll row = p.second.first;
+        ll col = p.second.second;
+    
+        if(visited[row][col])
+            continue;
+        
+        visited[row][col] = 1;
+        dist[row][col] = p.first;
+        
+        if(row == n-1 && col == n-1)
+            return dist[n-1][n-1];
+        
+        for(ll i = 0; i < 4; i++){
+            ll nrow = row + dx[i];
+            ll ncol = col + dy[i];
+            if(nrow<0 || ncol<0 || nrow>=n || ncol>=n || visited[nrow][ncol] == 1)
+                continue;
+            pq.push({p.first + g[nrow][ncol], {nrow,ncol}});    
+        }
+       
+    }
+    
+    return -1;   
+}
+
+int main() {
+	//code
+	ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    ll n;
+	    cin>>n;
+	    
+	    vector<vector<ll>> gp(n,vector<ll>(n,0));
+	    for(int i = 0; i < n; i++){
+	        for(int j = 0; j < n; j++){
+	            ll num;
+	            cin>>num;
+	            gp[i][j] = num;
+	        }
+	    }
+	    
+	    cout<<minCostPath(gp)<<endl;
+	}
+	return 0;
+}
