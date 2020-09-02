@@ -1,0 +1,49 @@
+class Solution {
+public:
+    bool findTarget(TreeNode* root, int k) {
+        if(root == NULL)
+            return 0;
+        
+        stack<TreeNode*> left_tree, right_tree;
+        
+        TreeNode *c = root;
+        while(c != NULL){
+            left_tree.push(c);
+            c = c->left;
+        }
+        
+        c = root;
+        while(c != NULL){
+            right_tree.push(c);
+            c = c->right;
+        }
+        
+        // 2 pointer approach, reverse inorder
+        while(left_tree.top() != right_tree.top()){
+            int v1 = left_tree.top()->val;
+            int v2 = right_tree.top()->val;
+            
+            if(v1+v2 == k)
+                return true;
+            
+            if(v1+v2 > k){
+                c = right_tree.top()->left;
+                right_tree.pop();
+                while(c != NULL){
+                    right_tree.push(c);
+                    c = c->right;
+                }
+            }
+            else{
+                c = left_tree.top()->right;
+                left_tree.pop();
+                while(c != NULL){
+                    left_tree.push(c);
+                    c = c->left;
+                }
+            }
+        }
+        
+        return false;
+    }
+};
