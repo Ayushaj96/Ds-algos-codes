@@ -1,0 +1,34 @@
+
+bool checkInterleave(string A, int i, string B, int j, string C, int k, vector<vector<int>> &dp){
+    
+    if(i == A.length()){
+        return C.substr(k) == B.substr(j);
+    }
+    
+    if(j == B.length())
+        return A.substr(i) == C.substr(k);
+        
+    if(dp[i][j] != -1)
+        return dp[i][j];
+    
+    bool flag1 = false, flag2 = false;
+    if(A[i] == C[k])
+        flag1 = checkInterleave(A,i+1,B,j,C,k+1,dp);
+    
+    if(B[j] == C[k])
+        flag2 = checkInterleave(A,i,B,j+1,C,k+1,dp);
+    
+    dp[i][j] = flag1 || flag2;    
+    return dp[i][j];
+}
+
+/*You are required to complete this method */
+bool isInterleave(string A, string B, string C) 
+{
+    //Your code here
+    int n = A.length(), m = B.length(), o = C.length();
+    if(n+m != o)
+        return false;
+    vector<vector<int>> dp(n,vector<int>(m,-1));
+    return checkInterleave(A,0,B,0,C,0,dp);
+}
