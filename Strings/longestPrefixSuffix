@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+ // based on KMP
+int lps(string str){
+    int n = str.length();
+    int Lps[n];
+    int len = 0, i = 1;
+    Lps[0] = 0;
+    while(i < n){
+        if(str[i] == str[len]){
+            Lps[i] = len+1;
+            len++;
+            i++;
+        }
+        else{
+            if(len != 0)
+                len = Lps[len-1];
+            else{
+                Lps[i] = 0;
+                i++;
+            }
+        }
+    }
+    return Lps[n-1];
+}
+
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    string str;
+	    cin>>str;
+	    
+	    cout<<lps(str)<<endl;
+	}
+	return 0;
+}
