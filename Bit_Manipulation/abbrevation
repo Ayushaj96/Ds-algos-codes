@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    string str;
+    cin>>str;
+
+    int n = 1<<str.length();
+    int count = 0;
+    
+    for(int i = 0; i < n; i++){
+        string abb = "";
+        count = 0;
+        for(int j = 0; j < str.length(); j++){
+            // bit to be checked - set or not
+            int bit = str.length() - 1 - j;
+    
+            if((i&(1<<bit)) == 0){
+                if(count == 0)
+                    abb.push_back(str[j]);
+                else{
+                    abb += to_string(count);
+                    abb.push_back(str[j]);
+                    count = 0;
+                }    
+            }
+            else
+                count++;
+        }
+        if(count)
+           abb += to_string(count);
+     
+        cout<<abb<<endl;
+    }
+   
+}
