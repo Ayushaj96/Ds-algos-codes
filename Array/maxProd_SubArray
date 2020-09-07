@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int maxProduct(vector<int>& ar) {
+        
+        int n = ar.size();
+        
+        int prev_max = ar[0];
+	    int prev_min = ar[0];
+	    int ans = ar[0];
+	    for(int i = 1 ; i < n ; i++)
+	    {
+	        int max1 = max(ar[i]*prev_max, ar[i]*prev_min);
+	        int min1 = min(ar[i]*prev_max, ar[i]*prev_min);
+	        ans = max(ans,max(max1,ar[i]));
+	        prev_max = max( max1,ar[i]);
+	        prev_min = min( min1,ar[i]);
+	    }
+	    return ans;
+    }
+};
