@@ -1,0 +1,34 @@
+#include <iostream>
+using namespace std;
+#define ll long long int
+#define mod 1000000007
+int main() {
+	//code
+	int T;
+	cin>>T;
+	
+	while(T--){
+	    int n;
+	    cin>>n;
+	    
+	    ll arr[n];
+	    for(int i = 0; i < n; i++)
+	        cin>>arr[i];
+	      
+	    ll setbit = 0, unsetbit = 0, total = 0;    
+	    for(int i = 0; i < 32; i++){ // for each bit
+	        setbit = 0;
+	        unsetbit = 0;
+	        for(int j = 0; j < n; j++){
+	            if(arr[j]&(1<<i))
+	                setbit++;
+	            else
+	                unsetbit++;
+	        }
+	        total = (total + setbit*unsetbit)%mod;
+	    }     
+	    total = (2*total)%mod;
+	    cout<<total<<endl;
+	}
+	return 0;
+}
