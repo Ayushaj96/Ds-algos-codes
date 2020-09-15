@@ -1,54 +1,38 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-int wordBreak(string str, int idx, unordered_set<string> s, vector<int> &dp){
-    if(str.length() == 0)
-        return 0;
-    
-    if(s.find(str) != s.end())
+class Solution {
+public:
+    int _wordBreak(string str, unordered_set<string> s, vector<int> &dp){
+    if(str.length() == 0){
         return 1;
-        
-    if(dp[idx] != -1)
-        return dp[idx];
-    
-    int flag = 0;
-    for(int i = 0; i < str.length(); i++){
-        string check = str.substr(0,i+1);
-        if(s.find(check) != s.end()){
-            flag = wordBreak(str.substr(i+1),i+1,s,dp);
-            if(flag == 1){
-               dp[idx] = 1;
-               return dp[idx];
-            }
-        }        
     }
-    dp[idx] = flag;
-    return flag;
+    
+    int n = str.size();
+    if(dp[n] == -1){
+        dp[n] = 0;
+    
+        for(int i = 0; i < str.length(); i++){
+            string left = str.substr(0,i+1);
+            if(s.find(left) != s.end()){
+                string right = str.substr(i+1);
+                if(_wordBreak(right,s,dp)){
+                    dp[n] = 1;
+                    return dp[n];
+                }
+            }        
+        }
+    }
+    return dp[n];
 }
-
-
-int main() {
-	//code
-	int T;
-	cin>>T;
-	
-	while(T--){
-	    int n;
-	    cin>>n;
-	    
-	    unordered_set<string> s;
-	    for(int i = 0; i < n; i++){
-	        string str;
-	        cin>>str;
-	        s.insert(str);
+    
+    bool wordBreak(string s, vector<string>& wordDict) {
+       
+        unordered_set<string> st;
+	    for(int i = 0; i < wordDict.size(); i++){
+	        st.insert(wordDict[i]);
 	    }
-	   
-	    string word;
-	    cin>>word;
 	    
-	    n = word.length();
-	    vector<int> dp(n,-1);
-	    cout<<wordBreak(word,0,s,dp)<<endl;
-	}
-	return 0;
-}
+	    int n = s.length();
+	    vector<int> dp(n+1,-1);
+        
+	    return _wordBreak(s,st,dp);
+    }
+};
