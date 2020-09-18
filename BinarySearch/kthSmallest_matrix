@@ -1,0 +1,40 @@
+class Solution {
+public:
+    
+    int countNums(vector<vector<int>> matrix, int mid) {
+      int n = matrix.size();
+      int r = 0, c = n - 1;
+      int count = 0;
+      while (r < n && c >= 0) {
+        if (mid >= matrix[r][c]) {
+          r++;
+          count += c + 1;
+        } 
+        else 
+          c--;
+      }
+      return count;
+    }
+    
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        
+        int n = matrix.size();
+        int lo = matrix[0][0];
+        int hi = matrix[n-1][n-1];
+        
+        int ans = 0;
+        while(lo <= hi){
+            int mid = lo + (hi-lo)/2;
+            int count = countNums(matrix,mid);
+           
+            if(count >= k){
+                ans = mid;
+                hi = mid-1;
+            }
+            else
+                lo = mid+1;
+        }
+        
+        return ans;
+    }
+};
