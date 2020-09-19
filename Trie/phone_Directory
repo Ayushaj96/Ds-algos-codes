@@ -1,0 +1,103 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define hashmap unordered_map<char,node*>
+
+class node{
+    public:
+        char data;
+        hashmap h;
+        bool isTerminal;
+        
+        node(char d){
+            data = d;
+            isTerminal = false;
+        }
+};
+
+void displayContactsUtil(node *curNode, string prefix) { 
+    
+    if (curNode->isTerminal){ 
+        cout << prefix <<" "; 
+        return;
+    }
+          
+    for (char i = 'a'; i <= 'z'; i++) { 
+        if(curNode->h.count(i) == 1)
+            displayContactsUtil(curNode->h[i], prefix + (char)i);
+    } 
+} 
+    
+void displayContacts(node *root, string str) { 
+    node *temp = root; 
+    string prefix = ""; 
+    int i; 
+            
+    for (i=0; i<str.length(); i++) { 
+        prefix += (char)str[i]; 
+        char lastChar = str[i]; 
+                
+        if(temp->h.count(lastChar) == 0)
+            break; 
+                
+        node *curNode = temp->h[lastChar];
+        displayContactsUtil(curNode, prefix); 
+        cout<<endl;
+          
+        temp = curNode; 
+    } 
+          
+    for (; i<str.length(); i++) 
+        cout<<0<<endl;
+        
+} 
+    
+void addWord(node *root, string word){
+    node *temp = root;
+    
+    for(int i=0; i<word.length(); i++){
+        char ch = word[i];
+        if(temp->h.count(ch) == 0){
+            node *child = new node(ch);
+            temp->h[ch] = child;
+            temp =child;
+        }
+        else
+            temp = temp->h[ch];
+    }
+            
+    temp->isTerminal = true;
+}
+
+int main() {
+    
+	//code
+	int t;
+	cin>>t;
+	
+	while(t--){
+	    int n;
+	    cin>>n;
+	    
+	    vector<string> str;
+	    for(int i=0; i<n; i++){
+	        string s;
+	        cin>>s;
+	        str.push_back(s);
+	    }
+	        
+	    string word;
+	    cin>>word;
+	    
+	    sort(str.begin(),str.end());
+	    
+	    node *root = new node('\0') ;
+	    for(int i=0; i<n; i++)
+	        addWord(root,str[i]);
+	        
+	    displayContacts(root,word);
+	    
+	    delete root;
+	    
+	}
+	return 0;
+}
