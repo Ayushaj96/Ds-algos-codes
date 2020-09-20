@@ -9,7 +9,6 @@ int main() {
 	while(T--){
 	    int n;
 	    cin>>n;
-	    
 	    int arr[n];
 	    for(int i = 0; i < n; i++)
 	        cin>>arr[i];
@@ -20,8 +19,35 @@ int main() {
 	        exc = max(exc,inc);
 	        inc = temp + arr[i];
 	    }
-	    
 	    cout<<max(inc,exc)<<endl;
 	}
 	return 0;
 }
+
+
+// Recursive + memoised
+class Solution {
+public:
+    
+    int _rob(vector<int> nums, int i, vector<int> &dp){
+       
+        if(i >= nums.size())
+            return 0;
+        
+        if(dp[i] != -1)
+            return dp[i];
+        
+        int cur = nums[i] + _rob(nums,i+2,dp);
+        int next = _rob(nums,i+1,dp);
+        
+        dp[i] =  max(cur,next);
+        return dp[i];
+    }
+    
+    int rob(vector<int>& nums) {
+        int amt = 0;
+        vector<int> dp(nums.size(),-1);
+        amt =  _rob(nums,0,dp);
+        return amt;
+    }
+};
