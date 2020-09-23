@@ -10,7 +10,7 @@ int smallestMissingPositive(int *arr, int n){
             continue;
         val = arr[i];
         
-        while(val > 0 && val < n && arr[val - 1] != val){
+        while(val > 0 && val <= n && arr[val - 1] != val){
             nextval = arr[val - 1];
             arr[val - 1] = val;
             val = nextval;
