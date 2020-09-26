@@ -21,3 +21,38 @@ public:
         return m[head];
     }
 };
+
+
+// O(1) solution
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if(head == NULL) return head;
+        
+        Node *cur = head, *aux = NULL;
+        while(cur){
+            aux = cur->next;
+            Node *n = new Node(cur->val);
+            cur->next = n;
+            n->next = aux;
+            cur = aux;
+        }
+        
+        cur = head;
+        while(cur){
+            cur->next->random = cur->random == NULL ? NULL: cur->random->next;
+            cur = cur->next->next;
+        }
+        
+        aux = head->next;
+        Node *copy = aux;
+        Node *original = head;
+        while(original && copy){
+            original->next = original->next ? original->next->next : original->next;
+            copy->next = (copy->next) ? copy->next->next : copy->next;
+            original = original->next;
+            copy = copy->next;
+        }
+        return aux;
+    }
+};
