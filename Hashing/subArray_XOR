@@ -1,0 +1,23 @@
+int Solution::solve(vector<int> &A, int B) {
+    
+    int ans = 0; 
+    int n = A.size();
+    vector<int> xorArr(n,0); 
+ 
+    unordered_map<int, int> mp; 
+    xorArr[0] = A[0]; 
+    // Computing the prefix array. 
+    for (int i = 1; i < n; i++) 
+        xorArr[i] = xorArr[i - 1] ^ A[i]; 
+  
+    // Calculate the answer 
+    for (int i = 0; i < n; i++) { 
+        if(mp.find(xorArr[i]^B) != mp.end())
+            ans += mp[xorArr[i]^B]; 
+  
+        if (xorArr[i] == B) 
+            ans++; 
+        mp[xorArr[i]]++; 
+    } 
+    return ans; 
+}
