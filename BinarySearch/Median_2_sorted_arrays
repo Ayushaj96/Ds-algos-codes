@@ -1,0 +1,38 @@
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        if(nums1.size() > nums2.size())
+            return findMedianSortedArrays(nums2,nums1);
+        
+        int lengthA = nums1.size();
+        int lengthB = nums2.size();
+        
+        
+        int lo = 0, hi = lengthA;
+        while(lo <= hi){
+            int partitionA = lo + (hi-lo)/2;
+            int partitionB = (lengthA + lengthB + 1)/2 - partitionA;
+
+            int maxleftA = partitionA == 0 ? INT_MIN : nums1[partitionA - 1];
+            int minrightA = partitionA == lengthA ? INT_MAX : nums1[partitionA];
+            
+            int maxleftB = partitionB == 0 ? INT_MIN : nums2[partitionB - 1];
+            int minrightB = partitionB == lengthB ? INT_MAX : nums2[partitionB];
+            
+            if(maxleftA <= minrightB && maxleftB <= minrightA){
+                if((lengthA+lengthB)&1){
+                    return double(max(maxleftA,maxleftB));
+                }
+                else{
+                    return double((min(minrightA,minrightB) + max(maxleftA,maxleftB))/2.0);
+                }
+            }
+            else if(maxleftA > minrightB)
+                hi = partitionA-1;
+            else
+                lo = partitionA+1;
+        }
+        
+        return 0.0;
+    }
+};
