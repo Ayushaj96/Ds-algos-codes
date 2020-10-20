@@ -1,0 +1,28 @@
+// BFS approach
+
+class Solution {
+public:
+    Node* cloneGraph(Node* node) {
+        if(node == NULL)    
+            return node;
+        
+        queue<Node*> q;
+        q.push(node);
+        unordered_map<Node*,Node*> clone;
+        clone[node] = new Node(node->val);
+        
+        while(!q.empty()){
+            Node* cur = q.front();
+            q.pop();
+            
+            for(Node *neighbor : cur->neighbors){
+                if(clone.find(neighbor) == clone.end()){
+                    q.push(neighbor);
+                    clone[neighbor] = new Node(neighbor->val);
+                }
+                clone[cur]->neighbors.push_back(clone[neighbor]);
+            }
+        }
+        return clone[node];
+    }
+};
