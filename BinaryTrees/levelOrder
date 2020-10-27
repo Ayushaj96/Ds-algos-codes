@@ -82,40 +82,24 @@ void levelorderprint(node*root)
 
 void levelorderprintQueue(node *root)
 {
-	
-	queue<node*> q;
-	q.push(root);
-	q.push(NULL);
-	
-	while(!q.empty())
-	{
-		node *f=q.front();
-		
-		if(f==NULL)
-		{	q.pop();
-			cout<<endl;
-			if(!q.empty())
-			q.push(NULL);
-		}
-		
-	else
-	{
-		q.pop();
-		cout<<f->data<<" ";
-		
-		if(f->left)
-		{
-			q.push(f->left);
-		}
-		
-		if(f->right)
-		{
-			q.push(f->right);
-		}
-		
-	}}
-	
-	
+  queue<node*> q;
+  q.push(node);
+  
+  while(!q.empty()){
+      int nodes = q.size();
+      while(nodes--){
+         node = q.front();
+         q.pop();
+         cout<<node->data<<" ";
+         
+         if(node->left != NULL){
+             q.push(node->left);
+         }
+         if(node->right != NULL){
+             q.push(node->right);
+         }
+      }
+  }
 	
 }
 void print2(node*root)
