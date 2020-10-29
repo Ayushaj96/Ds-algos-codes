@@ -1,0 +1,44 @@
+class Solution {
+public:
+    
+
+    void merge(vector<int> &A, int s, int m, int e){
+
+        int i = s, j = m+1, k = 0;
+        int size = e-s+1;
+        vector<int> temp(size,0);
+
+        while(i <= m && j <=e){
+            if(A[i] <= A[j])
+                temp[k++] = A[i++];
+            else
+                temp[k++] = A[j++];
+        }
+
+        while(i <= m)
+            temp[k++] = A[i++];
+        while(j <= e)
+             temp[k++] = A[j++];
+
+        for(k = s; k <= e; k++)
+            A[k] = temp[k-s];
+    }
+
+
+    void mergeSort(vector<int> &A, int s, int e){
+    
+        if(s < e){
+            int m = s + (e-s)/2;
+            mergeSort(A,s,m);
+            mergeSort(A,m+1,e);
+            merge(A,s,m,e);
+        }
+    }
+
+
+    vector<int> sortArray(vector<int>& nums) {
+        int n = nums.size();
+        mergeSort(nums,0,n-1);
+        return nums;
+    }
+};
